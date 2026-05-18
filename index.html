@@ -278,6 +278,26 @@
       line-height: 1.9;
     }
 
+    /* Counter */
+
+.service-counter {
+  margin-top: 25px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 34px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.service-counter span {
+  display: inline-block;
+}
+
+.plus {
+  font-size: 26px;
+}
+
     /* About */
 
     .about-content {
@@ -524,48 +544,6 @@
     </div>
   </section>
 
-  <!-- Services -->
-
-  <section id="services">
-    <div class="container">
-
-      <div class="section-title">
-        <h2>خدماتنا</h2>
-        <p>
-          نقدم حلول ويب متكاملة تجمع بين التصميم الحديث والأداء العالي.
-        </p>
-      </div>
-
-      <div class="services-grid">
-
-        <div class="service-card">
-          <i class="fa-solid fa-laptop-code"></i>
-          <h3>تصميم مواقع</h3>
-          <p>
-            تصميم مواقع احترافية متجاوبة مع جميع الأجهزة.
-          </p>
-        </div>
-
-        <div class="service-card">
-          <i class="fa-solid fa-cart-shopping"></i>
-          <h3>متاجر إلكترونية</h3>
-          <p>
-            إنشاء متاجر حديثة وسريعة مع تجربة مستخدم ممتازة.
-          </p>
-        </div>
-
-        <div class="service-card">
-          <i class="fa-solid fa-code"></i>
-          <h3>تطوير Full Stack</h3>
-          <p>
-            تطوير Frontend و Backend باستخدام أحدث التقنيات.
-          </p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
   <!-- About -->
 
   <section id="about">
@@ -614,6 +592,71 @@
       </div>
     </div>
   </section>
+  
+  <!-- Services -->
+
+  <section id="services">
+    <div class="container">
+
+      <div class="section-title">
+        <h2>خدماتنا</h2>
+        <p>
+          نقدم حلول ويب متكاملة تجمع بين التصميم الحديث والأداء العالي.
+        </p>
+      </div>
+
+<div class="services-grid">
+
+  <div class="service-card">
+    <i class="fa-solid fa-laptop-code"></i>
+
+    <div class="service-counter">
+      <span class="counter" data-target="46">0</span>
+      <span class="plus">+</span>
+    </div>
+
+    <h3>تصميم مواقع</h3>
+
+    <p>
+      تصميم مواقع احترافية متجاوبة مع جميع الأجهزة.
+    </p>
+  </div>
+
+  <div class="service-card">
+    <i class="fa-solid fa-cart-shopping"></i>
+
+    <div class="service-counter">
+      <span class="counter" data-target="4">0</span>
+      <span class="plus">+</span>
+    </div>
+
+    <h3>متاجر إلكترونية</h3>
+
+    <p>
+      إنشاء متاجر حديثة وسريعة مع تجربة مستخدم ممتازة.
+    </p>
+  </div>
+
+  <div class="service-card">
+    <i class="fa-solid fa-code"></i>
+
+    <div class="service-counter">
+      <span class="counter" data-target="19">0</span>
+      <span class="plus">+</span>
+    </div>
+
+    <h3>تطوير Full Stack</h3>
+
+    <p>
+      تطوير Frontend و Backend باستخدام أحدث التقنيات.
+    </p>
+  </div>
+
+</div>
+    </div>
+  </section>
+
+  
 
   <!-- Projects -->
 
@@ -749,21 +792,78 @@
     </div>
   </footer>
 
-  <script>
 
-    // Navbar Scroll Effect
+<script>
 
-    const header = document.getElementById('header');
+  // Navbar Scroll Effect
 
-    window.addEventListener('scroll', () => {
-      if(window.scrollY > 50) {
-        header.classList.add('scrolled');
+  const header = document.getElementById('header');
+
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+
+  // Counter Animation
+
+  const counters = document.querySelectorAll('.counter');
+
+  const startCounter = (counter) => {
+    const target = +counter.getAttribute('data-target');
+
+    let count = 0;
+
+    const updateCounter = () => {
+
+      const increment = target / 60;
+
+      if(count < target) {
+
+        count += increment;
+
+        counter.innerText = Math.ceil(count);
+
+        requestAnimationFrame(updateCounter);
+
       } else {
-        header.classList.remove('scrolled');
+
+        counter.innerText = target;
+
       }
+    };
+
+    updateCounter();
+  };
+
+  // Intersection Observer
+
+  const observer = new IntersectionObserver((entries) => {
+
+    entries.forEach(entry => {
+
+      if(entry.isIntersecting) {
+
+        const counter = entry.target;
+
+        startCounter(counter);
+
+        observer.unobserve(counter);
+
+      }
+
     });
 
-  </script>
+  }, {
+    threshold: 0.5
+  });
 
+  counters.forEach(counter => {
+    observer.observe(counter);
+  });
+
+</script>
 </body>
 </html>
