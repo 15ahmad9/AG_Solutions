@@ -1,0 +1,99 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  --primary:#60a5fa;
+  --background:#020617;
+  --card:#0f172a;
+  --text:#ffffff;
+  --gray:#94a3b8;
+  --border:rgba(255,255,255,0.08);
+  --success:#16a34a;
+}
+
+body{
+  background:var(--background);
+  font-family:'Cairo',sans-serif;
+  color:var(--text);
+}
+
+.container{
+  width:90%;
+  max-width:700px;
+  margin:auto;
+  padding:80px 0;
+}
+
+.card{
+  background:var(--card);
+  padding:40px;
+  border-radius:24px;
+  border:1px solid var(--border);
+}
+
+h1{
+  margin-bottom:30px;
+  text-align:center;
+  font-size:36px;
+}
+
+.input-group{
+  margin-bottom:20px;
+}
+
+input,
+textarea{
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:12px;
+  background:#111827;
+  color:white;
+  font-family:inherit;
+  outline:none;
+  border:1px solid transparent;
+  transition:0.3s;
+}
+
+input:focus,
+textarea:focus{
+  border-color:var(--primary);
+}
+
+textarea{
+  resize:none;
+  height:140px;
+}
+
+.btn{
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:12px;
+  background:var(--primary);
+  color:white;
+  font-size:18px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 25px rgba(96,165,250,0.25);
+}
+
+.message{
+  background:var(--success);
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:20px;
+  text-align:center;
+}
+
+input[type="file"]{
+  padding:12px;
+}
