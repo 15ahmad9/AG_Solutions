@@ -66,3 +66,50 @@
   counters.forEach(counter => {
     observer.observe(counter);
   });
+
+  // Slider
+
+const slides = document.querySelector('.slides');
+
+if(slides){
+
+    const slide = document.querySelectorAll('.slide');
+
+    const nextBtn = document.querySelector('.next');
+
+    const prevBtn = document.querySelector('.prev');
+
+    let index = 0;
+
+    function updateSlider(){
+
+        slides.style.transform =
+            `translateX(${index * 100}%)`;
+
+    }
+
+    nextBtn.addEventListener('click', () => {
+
+        index++;
+
+        if(index >= slide.length){
+            index = 0;
+        }
+
+        updateSlider();
+
+    });
+
+    prevBtn.addEventListener('click', () => {
+
+        index--;
+
+        if(index < 0){
+            index = slide.length - 1;
+        }
+
+        updateSlider();
+
+    });
+
+}

@@ -3,7 +3,11 @@
         "id": 1,
         "title": "Food Ordering System",
         "description": "نظام طلب طعام متكامل باستخدام React و Node.js",
-        "image": "uploads\/project1.jpg",
+        "images": [
+            "uploads\/project1.jpg",
+            "uploads\/project1.jpg",
+            "uploads\/project1.jpg"
+        ],
         "technologies": "React, Node.js, MongoDB",
         "content": "تم تطوير النظام لعرض المنتجات وإدارة الطلبات والدفع الإلكتروني."
     },
@@ -11,7 +15,11 @@
         "id": 2,
         "title": "Portfolio Website",
         "description": "موقع شخصي احترافي لعرض الخدمات",
-        "image": "uploads\/project2.jpg",
+        "images": [
+            "uploads\/project1.jpg",
+            "uploads\/project1.jpg",
+            "uploads\/project1.jpg"
+        ],
         "technologies": "HTML, CSS, JavaScript",
         "content": "موقع Portfolio احترافي متجاوب مع جميع الأجهزة."
     },
@@ -19,7 +27,11 @@
         "id": 3,
         "title": "Dashboard System",
         "description": "لوحة تحكم لإدارة البيانات والمستخدمين",
-        "image": "uploads\/project3.jpg",
+        "images": [
+            "uploads\/project1.jpg",
+            "uploads\/project1.jpg",
+            "uploads\/project1.jpg"
+        ],
         "technologies": "PHP, MySQL, Bootstrap",
         "content": "لوحة تحكم متكاملة لإدارة النظام والصلاحيات."
     }

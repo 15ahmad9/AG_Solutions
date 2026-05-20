@@ -1,5 +1,55 @@
+<?php
+
+require_once 'config/db.php';
+
+$success = false;
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+  $name = trim($_POST['name']);
+  $email = trim($_POST['email']);
+  $message = trim($_POST['message']);
+
+  if (!empty($name) && !empty($email) && !empty($message)) {
+
+    $stmt = $pdo->prepare("
+            INSERT INTO contacts(name, email, message)
+            VALUES(?,?,?)
+        ");
+
+    $stmt->execute([
+      $name,
+      $email,
+      $message
+    ]);
+
+    header("Location: index.php?success=1");
+
+    exit;
+
+  }
+
+}
+
+if (isset($_GET['success'])) {
+
+  $success = true;
+
+}
+
+$stmt = $pdo->query("
+    SELECT * FROM projects
+    ORDER BY id DESC
+");
+
+$projects = $stmt->fetchAll();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,7 +58,8 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
@@ -17,6 +68,7 @@
   <link rel="stylesheet" href="assets/css/style.css" />
 
 </head>
+
 <body>
 
   <!-- Header -->
@@ -137,58 +189,58 @@
         </p>
       </div>
 
-<div class="services-grid">
+      <div class="services-grid">
 
-  <div class="service-card">
-    <i class="fa-solid fa-laptop-code"></i>
+        <div class="service-card">
+          <i class="fa-solid fa-laptop-code"></i>
 
-    <div class="service-counter">
-      <span class="counter" data-target="46">0</span>
-      <span class="plus">+</span>
-    </div>
+          <div class="service-counter">
+            <span class="counter" data-target="46">0</span>
+            <span class="plus">+</span>
+          </div>
 
-    <h3>تصميم مواقع</h3>
+          <h3>تصميم مواقع</h3>
 
-    <p>
-      تصميم مواقع احترافية متجاوبة مع جميع الأجهزة.
-    </p>
-  </div>
+          <p>
+            تصميم مواقع احترافية متجاوبة مع جميع الأجهزة.
+          </p>
+        </div>
 
-  <div class="service-card">
-    <i class="fa-solid fa-cart-shopping"></i>
+        <div class="service-card">
+          <i class="fa-solid fa-cart-shopping"></i>
 
-    <div class="service-counter">
-      <span class="counter" data-target="4">0</span>
-      <span class="plus">+</span>
-    </div>
+          <div class="service-counter">
+            <span class="counter" data-target="4">0</span>
+            <span class="plus">+</span>
+          </div>
 
-    <h3>متاجر إلكترونية</h3>
+          <h3>متاجر إلكترونية</h3>
 
-    <p>
-      إنشاء متاجر حديثة وسريعة مع تجربة مستخدم ممتازة.
-    </p>
-  </div>
+          <p>
+            إنشاء متاجر حديثة وسريعة مع تجربة مستخدم ممتازة.
+          </p>
+        </div>
 
-  <div class="service-card">
-    <i class="fa-solid fa-code"></i>
+        <div class="service-card">
+          <i class="fa-solid fa-code"></i>
 
-    <div class="service-counter">
-      <span class="counter" data-target="19">0</span>
-      <span class="plus">+</span>
-    </div>
+          <div class="service-counter">
+            <span class="counter" data-target="19">0</span>
+            <span class="plus">+</span>
+          </div>
 
-    <h3>تطوير Full Stack</h3>
+          <h3>تطوير Full Stack</h3>
 
-    <p>
-      تطوير Frontend و Backend باستخدام أحدث التقنيات.
-    </p>
-  </div>
+          <p>
+            تطوير Frontend و Backend باستخدام أحدث التقنيات.
+          </p>
+        </div>
 
-</div>
+      </div>
     </div>
   </section>
 
-  
+
 
   <!-- Projects -->
 
@@ -252,40 +304,65 @@
       </div> -->
 
       <?php
-$projects = json_decode(file_get_contents('data/projects.json'), true);
-?>
 
-<div class="projects-grid">
+      $stmt = $pdo->query("
+    SELECT *
+    FROM projects
+    ORDER BY id DESC
+");
 
-<?php foreach($projects as $project): ?>
+      $projects = $stmt->fetchAll();
 
-  <div class="project-card">
+      ?>
 
-    <div class="project-image">
-      <img src="<?= $project['image'] ?>" alt="">
-    </div>
+      <div class="projects-grid">
 
-    <div class="project-content">
+        <?php foreach ($projects as $project): ?>
 
-      <h3><?= $project['title'] ?></h3>
+          <?php
 
-      <p>
-        <?= $project['description'] ?>
-      </p>
+          $imageStmt = $pdo->prepare("
+    SELECT image
+    FROM project_images
+    WHERE project_id = ?
+    LIMIT 1
+");
 
-      <a href="project.php?id=<?= $project['id'] ?>" class="btn">
-        عرض المشروع
-      </a>
+          $imageStmt->execute([$project['id']]);
 
-    </div>
+          $projectImage = $imageStmt->fetch();
 
-  </div>
+          ?>
 
-<?php endforeach; ?>
+          <div class="project-card">
 
-</div>
+            <div class="project-image">
 
-    </div>
+              <img src="<?= htmlspecialchars($projectImage['image']) ?>" alt="<?= htmlspecialchars($project['title']) ?>">
+
+            </div>
+
+            <div class="project-content">
+
+              <h3>
+                <?= htmlspecialchars($project['title']) ?>
+              </h3>
+
+              <p>
+                <?= htmlspecialchars($project['description']) ?>
+              </p>
+
+              <a href="project.php?id=<?= $project['id'] ?>" class="btn">
+                عرض المشروع
+              </a>
+
+            </div>
+
+          </div>
+
+        <?php endforeach; ?>
+
+      </div>
   </section>
 
   <!-- Contact -->
@@ -303,21 +380,30 @@ $projects = json_decode(file_get_contents('data/projects.json'), true);
       <div class="contact-content">
 
         <div class="contact-form">
-          <form>
+          <?php if ($success): ?>
+
+            <div class="success-message">
+              تم إرسال رسالتك بنجاح
+            </div>
+
+          <?php endif; ?>
+          <form method="POST">
 
             <div class="input-group">
-              <input type="text" placeholder="الاسم الكامل" required>
+              <input type="text" name="name" placeholder="الاسم الكامل" required>
             </div>
 
             <div class="input-group">
-              <input type="email" placeholder="البريد الإلكتروني" required>
+              <input type="email" name="email" placeholder="البريد الإلكتروني" required>
             </div>
 
             <div class="input-group">
-              <textarea rows="6" placeholder="اكتب رسالتك"></textarea>
+              <textarea name="message" rows="6" placeholder="اكتب رسالتك" required></textarea>
             </div>
 
-            <button class="btn" type="submit">إرسال الرسالة</button>
+            <button class="btn" type="submit">
+              إرسال الرسالة
+            </button>
 
           </form>
         </div>
@@ -331,15 +417,19 @@ $projects = json_decode(file_get_contents('data/projects.json'), true);
           </div>
 
           <div class="contact-item">
+
             <i class="fa-brands fa-instagram"></i>
-            <span>@ag__solution</span>
+
+            <a href="https://www.instagram.com/ag__solution?igsh=YmMwM2YxeWw3bm54" target="_blank">
+              @ag__solution
+            </a>
+
           </div>
 
           <div class="contact-item">
             <i class="fa-solid fa-envelope"></i>
-            <span>agsolution@gmail.com</span>
+            <span>agsolution.jo@gmail.com</span>
           </div>
-
         </div>
 
       </div>
@@ -351,8 +441,8 @@ $projects = json_decode(file_get_contents('data/projects.json'), true);
   <footer>
     <div class="container">
       <p class="Copyright">Copyright &copy;
-                <script>document.write(new Date().getFullYear())</script> All rights reserved to AG Solutions
-            </p>
+        <script>document.write(new Date().getFullYear())</script> All rights reserved to AG Solutions
+      </p>
     </div>
   </footer>
 
@@ -360,4 +450,5 @@ $projects = json_decode(file_get_contents('data/projects.json'), true);
   <script src="assets/js/main.js"></script>
 
 </body>
+
 </html>

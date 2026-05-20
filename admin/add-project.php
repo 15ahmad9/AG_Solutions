@@ -1,60 +1,98 @@
 <?php
 
+session_start();
+
+if(!isset($_SESSION['admin'])){
+    header("Location: login.php");
+    exit;
+}
+
+require_once '../config/db.php';
+
 $message = "";
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    $title = $_POST['title'];
-    $description = $_POST['description'];
-    $technologies = $_POST['technologies'];
-    $content = $_POST['content'];
+    $title = trim($_POST['title']);
+    $description = trim($_POST['description']);
+    $technologies = trim($_POST['technologies']);
+    $content = trim($_POST['content']);
 
-    // قراءة المشاريع الحالية
+    /*
+    |--------------------------------------------------------------------------
+    | إضافة المشروع داخل قاعدة البيانات
+    |--------------------------------------------------------------------------
+    */
 
-    $projects = json_decode(file_get_contents('../data/projects.json'), true);
+    $stmt = $pdo->prepare("
+        INSERT INTO projects
+        (
+            title,
+            description,
+            content,
+            technologies
+        )
+        VALUES(?, ?, ?, ?)
+    ");
 
-    // إنشاء ID جديد
+    $stmt->execute([
+        $title,
+        $description,
+        $content,
+        $technologies
+    ]);
 
-    $newId = count($projects) > 0
-        ? end($projects)['id'] + 1
-        : 1;
+    /*
+    |--------------------------------------------------------------------------
+    | الحصول على ID المشروع
+    |--------------------------------------------------------------------------
+    */
 
-    // رفع الصورة
+    $projectId = $pdo->lastInsertId();
 
-    $imageName = time() . '_' . $_FILES['image']['name'];
+    /*
+    |--------------------------------------------------------------------------
+    | رفع الصور
+    |--------------------------------------------------------------------------
+    */
 
-    $targetPath = "../uploads/" . $imageName;
+    if(!empty($_FILES['images']['name'][0])){
 
-    move_uploaded_file($_FILES['image']['tmp_name'], $targetPath);
+        foreach($_FILES['images']['tmp_name'] as $key => $tmpName){
 
-    // إنشاء المشروع الجديد
+            if(empty($tmpName)){
+                continue;
+            }
 
-    $newProject = [
+            $imageName = time() . '_' . basename($_FILES['images']['name'][$key]);
 
-        "id" => $newId,
+            $targetPath = "../uploads/" . $imageName;
 
-        "title" => $title,
+            move_uploaded_file($tmpName, $targetPath);
 
-        "description" => $description,
+            /*
+            |--------------------------------------------------------------------------
+            | حفظ الصور داخل قاعدة البيانات
+            |--------------------------------------------------------------------------
+            */
 
-        "image" => "uploads/" . $imageName,
+            $imageStmt = $pdo->prepare("
+                INSERT INTO project_images
+                (
+                    project_id,
+                    image
+                )
+                VALUES(?, ?)
+            ");
 
-        "technologies" => $technologies,
+            $imageStmt->execute([
+                $projectId,
+                "uploads/" . $imageName
+            ]);
 
-        "content" => $content
+        }
 
-    ];
-
-    // إضافة المشروع للمصفوفة
-
-    $projects[] = $newProject;
-
-    // حفظ داخل JSON
-
-    file_put_contents(
-        '../data/projects.json',
-        json_encode($projects, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
-    );
+    }
 
     $message = "تم إضافة المشروع بنجاح";
 
@@ -67,67 +105,96 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 <head>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>إضافة مشروع</title>
+    <title>
+        إضافة مشروع
+    </title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 
 </head>
 
 <body>
 
-<div class="container">
+<div class="admin-page">
 
-  <div class="card">
+    <div class="admin-card">
 
-    <h1>
-      إضافة مشروع جديد
-    </h1>
+        <h1>
+            إضافة مشروع
+        </h1>
 
-    <?php if($message): ?>
+        <?php if($message): ?>
 
-      <div class="message">
-        <?= $message ?>
-      </div>
+            <div class="message success">
+                <?= $message ?>
+            </div>
 
-    <?php endif; ?>
+        <?php endif; ?>
 
-    <form method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data">
 
-      <div class="input-group">
-        <input type="text" name="title" placeholder="اسم المشروع" required>
-      </div>
+            <div class="input-group">
 
-      <div class="input-group">
-        <input type="text" name="description" placeholder="وصف قصير" required>
-      </div>
+                <input
+                    type="text"
+                    name="title"
+                    placeholder="اسم المشروع"
+                    required
+                >
 
-      <div class="input-group">
-        <textarea name="content" placeholder="شرح المشروع"></textarea>
-      </div>
+            </div>
 
-      <div class="input-group">
-        <input type="text" name="technologies" placeholder="التقنيات المستخدمة">
-      </div>
+            <div class="input-group">
 
-      <div class="input-group">
-        <input type="file" name="image" required>
-      </div>
+                <input
+                    type="text"
+                    name="description"
+                    placeholder="وصف قصير"
+                    required
+                >
 
-      <button type="submit" class="btn">
-        إضافة المشروع
-      </button>
+            </div>
 
-    </form>
+            <div class="input-group">
 
-  </div>
+                <textarea
+                    name="content"
+                    placeholder="شرح المشروع"
+                ></textarea>
+
+            </div>
+
+            <div class="input-group">
+
+                <input
+                    type="text"
+                    name="technologies"
+                    placeholder="التقنيات المستخدمة"
+                >
+
+            </div>
+
+            <div class="input-group">
+
+                <input
+                    type="file"
+                    name="images[]"
+                    multiple
+                    required
+                >
+
+            </div>
+
+            <button type="submit" class="btn">
+                إضافة المشروع
+            </button>
+
+        </form>
+
+    </div>
 
 </div>
 
