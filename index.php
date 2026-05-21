@@ -108,8 +108,8 @@ $projects = $stmt->fetchAll();
           </h1>
 
           <p>
-            نقدم حلول تطوير ويب حديثة وسريعة ومتجاوبة تساعد الشركات
-            والمتاجر والأعمال الناشئة على بناء حضور رقمي احترافي.
+            نقدم حلول تطوير ويب حديثة، سريعة ومتجاوبة تساعد الشركات والمتاجر والأعمال الناشئة على بناء حضور رقمي احترافي
+            وتحويل الأفكار إلى مشاريع حقيقية قابلة للتطبيق على أرض الواقع.
           </p>
 
           <div class="hero-buttons">
@@ -118,11 +118,22 @@ $projects = $stmt->fetchAll();
           </div>
         </div>
 
-        <div class="hero-image">
-          <div class="hero-card">
-            <img src="assets/images/AG_Logo_RBG.png" alt="Website Preview">
-          </div>
-        </div>
+<div class="hero-image">
+
+  <div class="hero-slider">
+
+    <img src="assets/images/hero_image1.jpg" class="hero-slide active" alt="">
+    
+    <img src="assets/images/hero_image2.jpg" class="hero-slide" alt="">
+    
+        <img src="assets/images/hero_image3.jpg" class="hero-slide" alt="">
+
+    <img src="assets/images/hero_image4.png" class="hero-slide" alt="">
+
+
+  </div>
+
+</div>
 
       </div>
     </div>
@@ -140,12 +151,12 @@ $projects = $stmt->fetchAll();
         </div>
 
         <div class="about-text">
-          <h2>من نحن</h2>
+          <h2> من نحن ؟؟ </h2>
 
           <p>
-            في AG Solutions نؤمن أن الموقع الإلكتروني ليس مجرد تصميم،
-            بل هو واجهة رقمية تعكس احترافية مشروعك وتساعدك على الوصول
-            إلى عملائك بشكل أفضل.
+            في AG Solutions، نعمل على تقديم حلول ويب وتقنية احترافية تساعد الشركات وأصحاب المشاريع على بناء حضور رقمي
+            قوي واحترافي، من خلال مواقع حديثة، أنظمة مخصصة، وتجربة مستخدم عالية الجودة، وتساعدك على الوصول إلى عملائك
+            بشكل أفضل.
           </p>
 
           <div class="about-features">

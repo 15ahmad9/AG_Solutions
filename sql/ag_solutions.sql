@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 20, 2026 at 10:53 PM
+-- Generation Time: May 21, 2026 at 10:53 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -55,6 +55,13 @@ CREATE TABLE `contacts` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `contacts`
+--
+
+INSERT INTO `contacts` (`id`, `name`, `email`, `message`, `created_at`) VALUES
+(23, 'Ahmad', 'ahmad@gmail.com', 'sdfgbvfdxhbfxdhbxfdbxfdbgxd', '2026-05-20 20:57:22');
+
 -- --------------------------------------------------------
 
 --
@@ -70,6 +77,16 @@ CREATE TABLE `projects` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `projects`
+--
+
+INSERT INTO `projects` (`id`, `title`, `description`, `content`, `technologies`, `created_at`) VALUES
+(4, 'Mutadarrib', 'منصة للتدريب المهني تربط المتدربين بجهات التدريب المعتمدة في مختلف التخصصات.', 'منصة “متدرب” هي منصة رقمية للتدريب المهني تهدف إلى ربط الخريجين بجهات تدريب معتمدة في مختلف التخصصات، ضمن مسار واضح يبدأ بإنشاء الحساب وإكمال الملف الشخصي، ثم التقديم على فرص التدريب والمتابعة حتى إتمام البرنامج.', 'php', '2026-05-21 20:05:19'),
+(6, 'Fashion Store', 'وجهتك لأحدث الصيحات والأنماط، والتزامك بالأناقة والجودة ورضا العملاء.', 'نواكب أحدث الصيحات والتصاميم العصرية، مع حرصنا الدائم على تقديم أعلى معايير الأناقة والجودة لضمان رضا عملائنا وثقتهم.', '', '2026-05-21 20:14:37'),
+(7, 'Health and Medicine Pharmacy', 'نقدّم لك أفضل خدمات وحلول الرعاية الصحية المتكاملة في مدينتك، بجودة موثوقة', 'متخصصون في توفير الأدوية والمستلزمات الطبية ومنتجات العناية الصحية بجودة عالية وأسعار مناسبة، مع الالتزام بتقديم خدمة موثوقة واستشارات تساعد على تعزيز صحة وراحة العملاء.', '', '2026-05-21 20:16:30'),
+(8, 'Cinema World', 'تطبيق مجاني لمشاهدة الأفلام والبرامج التلفزيونية عبر الإنترنت بجودة عالية على أي جهاز', 'هل تبحث عن تطبيق لمشاهدة الأفلام مع الأصدقاء والعائلة؟ سينما وورلد هو أفضل تطبيق لمشاهدة الأفلام والمسلسلات التلفزيونية مجاناً. كل ذلك مجاناً وبشكل قانوني.', 'JavaScript (React)', '2026-05-21 20:47:01');
+
 -- --------------------------------------------------------
 
 --
@@ -81,6 +98,16 @@ CREATE TABLE `project_images` (
   `project_id` int(11) NOT NULL,
   `image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `project_images`
+--
+
+INSERT INTO `project_images` (`id`, `project_id`, `image`) VALUES
+(10, 4, 'uploads/1779393919_Mutadarrib.png'),
+(12, 6, 'uploads/1779394477_Fashion Store.png'),
+(13, 7, 'uploads/1779394590_Health and Medicine Pharmacy.png'),
+(14, 8, 'uploads/1779396421_Cinema World.png');
 
 --
 -- Indexes for dumped tables
@@ -126,19 +153,19 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `project_images`
 --
 ALTER TABLE `project_images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables

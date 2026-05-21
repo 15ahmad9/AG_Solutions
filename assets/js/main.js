@@ -113,3 +113,30 @@ if(slides){
     });
 
 }
+
+
+/* ========================================
+   Hero Slider
+======================================== */
+
+const heroSlides = document.querySelectorAll('.hero-slide');
+
+let heroIndex = 0;
+
+function changeHeroSlide(){
+
+    heroSlides.forEach(slide => {
+        slide.classList.remove('active');
+    });
+
+    heroIndex++;
+
+    if(heroIndex >= heroSlides.length){
+        heroIndex = 0;
+    }
+
+    heroSlides[heroIndex].classList.add('active');
+
+}
+
+setInterval(changeHeroSlide, 3000);
