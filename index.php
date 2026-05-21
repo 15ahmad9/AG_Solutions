@@ -80,14 +80,14 @@ $projects = $stmt->fetchAll();
         <a href="#contact" class="btn">ابدأ مشروعك</a>
 
         <ul class="nav-links">
-          <li><a href="#contact">تواصل معنا</a></li>
-          <li><a href="#projects">أعمالنا</a></li>
+          <li><a href="contact.php">تواصل معنا</a></li>
+          <li><a href="projects.php">أعمالنا</a></li>
           <li><a href="#about">من نحن</a></li>
           <li><a href="#services">الخدمات</a></li>
-          <li><a href="#home">الرئيسية</a></li>
+          <li><a href="index.php">الرئيسية</a></li>
         </ul>
 
-        <a href="#" class="logo">
+        <a href="index.php" class="logo">
           <img src="assets/images/AG_Logo_RBG.png" alt="AG Solutions Logo">
         </a>
 
