@@ -53,6 +53,9 @@ $projects = $stmt->fetchAll();
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- logo icon -->
+  <link rel="shortcut icon" href="assets/images/AG_Logo_RBG.png" type="image/x-icon">
+
   <title>AG Solutions</title>
 
   <!-- Google Fonts -->
@@ -74,24 +77,31 @@ $projects = $stmt->fetchAll();
   <!-- Header -->
 
   <header id="header">
-    <div class="container">
-      <nav>
+<nav class="navbar">
 
-        <a href="#contact" class="btn">ابدأ مشروعك</a>
+  <!-- Logo -->
 
-        <ul class="nav-links">
-          <li><a href="contact.php">تواصل معنا</a></li>
-          <li><a href="projects.php">أعمالنا</a></li>
-          <li><a href="#about">من نحن</a></li>
-          <li><a href="#services">الخدمات</a></li>
-          <li><a href="index.php">الرئيسية</a></li>
-        </ul>
+  <a href="index.php" class="logo">
+    <img src="assets/images/AG_Logo_RBG.png" alt="AG Solutions Logo">
+  </a>
 
-        <a href="index.php" class="logo">
-          <img src="assets/images/AG_Logo_RBG.png" alt="AG Solutions Logo">
-        </a>
+  <!-- Navigation Links -->
 
-      </nav>
+  <ul class="nav-links">
+    <li><a href="index.php">الرئيسية</a></li>
+    <li><a href="#services">الخدمات</a></li>
+    <li><a href="#about">من نحن</a></li>
+    <li><a href="projects.php">أعمالنا</a></li>
+    <li><a href="contact.php">تواصل معنا</a></li>
+  </ul>
+
+  <!-- Button -->
+
+  <a href="#contact" class="btn">
+    ابدأ مشروعك
+  </a>
+
+</nav>
     </div>
   </header>
 

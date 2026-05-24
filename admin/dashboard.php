@@ -64,7 +64,23 @@ $messages = $pdo->query("
 </head>
 
 <body>
+    <div class="container">
+      <nav>
 
+        <a href="../contact.php" class="btn">ابدأ مشروعك</a>
+
+        <ul class="nav-links">
+          <li><a href="../contact.php">تواصل معنا</a></li>
+          <li><a href="../projects.php">أعمالنا</a></li>
+          <li><a href="../index.php">الرئيسية</a></li>
+        </ul>
+
+        <a href="../index.php" class="logo">
+          <img src="../assets/images/AG_Logo_RBG.png" alt="AG Solutions Logo">
+        </a>
+
+      </nav>
+    </div>
 <div class="dashboard">
 
     <div class="container">

@@ -51,6 +51,8 @@ if(isset($_GET['success'])){
 
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
+    <!-- logo icon -->
+  <link rel="shortcut icon" href="assets/images/AG_Logo_RBG.png" type="image/x-icon">
 
     <title>
         تواصل معنا | AG Solutions
@@ -128,8 +130,8 @@ if(isset($_GET['success'])){
         <nav>
 
 <ul class="nav-links">
+    <li><a href="index.php">الرئيسية</a></li>
           <li><a href="projects.php">أعمالنا</a></li>
-          <li><a href="index.php">الرئيسية</a></li>
         </ul>
 
             <a href="index.php" class="logo">
