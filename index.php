@@ -132,11 +132,11 @@ $projects = $stmt->fetchAll();
 
   <div class="hero-slider">
 
-    <img src="assets/images/hero_image1.jpg" class="hero-slide active" alt="">
+    <img src="assets/images/hero_image1.png" class="hero-slide active" alt="">
     
     <img src="assets/images/hero_image2.jpg" class="hero-slide" alt="">
     
-        <img src="assets/images/hero_image3.jpg" class="hero-slide" alt="">
+        <img src="assets/images/hero_image3.png" class="hero-slide" alt="">
 
     <img src="assets/images/hero_image4.png" class="hero-slide" alt="">
 

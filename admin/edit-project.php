@@ -165,7 +165,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         تعديل المشروع
     </title>
 
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
 
 </head>
 
@@ -231,38 +231,27 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
             <!-- الصور الحالية -->
 
-            <div class="current-images">
+<div class="current-images">
 
-                <h3>
-                    الصور الحالية
-                </h3>
+    <?php foreach($images as $img): ?>
 
-                <div class="images-grid">
+        <div class="image-box">
 
-                    <?php foreach($images as $image): ?>
+            <img src="../<?= $img['image'] ?>" alt="">
 
-                        <div class="image-card">
+            <a 
+                href="delete-image.php?id=<?= $img['id'] ?>"
+                class="delete-image-btn"
+                onclick="return confirm('هل أنت متأكد من حذف الصورة؟')"
+            >
+                حذف الصورة
+            </a>
 
-                            <img
-                                src="../<?= $image['image'] ?>"
-                                alt=""
-                            >
+        </div>
 
-                            <a
-                                href="delete-image.php?id=<?= $image['id'] ?>&project_id=<?= $project['id'] ?>"
-                                class="delete-image-btn"
-                                onclick="return confirm('هل تريد حذف الصورة؟')"
-                            >
-                                حذف
-                            </a>
+    <?php endforeach; ?>
 
-                        </div>
-
-                    <?php endforeach; ?>
-
-                </div>
-
-            </div>
+</div>
 
             <!-- إضافة صور جديدة -->
 
