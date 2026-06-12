@@ -40,7 +40,7 @@ $templates = $stmt->fetchAll();
                 <li><a href="contact.php">تواصل معنا</a></li>
             </ul>
 
-            <a href="contact.php" class="btn">اطلب Template</a>
+            <a href="contact.php" class="btn">اطلب موقعك</a>
 
         </nav>
     </div>
@@ -50,7 +50,7 @@ $templates = $stmt->fetchAll();
     <div class="container">
 
         <div class="section-title">
-            <h2>Templates جاهزة للبيع</h2>
+            <h2>القوالب الجاهزة</h2>
             <p>
                 اختر قالب موقع جاهز واحترافي، ويمكننا تخصيصه حسب اسم مشروعك وهويتك.
             </p>
