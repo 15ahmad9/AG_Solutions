@@ -30,6 +30,13 @@ $stmt = $pdo->query("
 
 $projects = $stmt->fetchAll();
 
+
+$templates = $pdo->query("
+    SELECT *
+    FROM templates
+    ORDER BY id DESC
+")->fetchAll();
+
 /*
 |--------------------------------------------------------------------------
 | جلب رسائل التواصل
@@ -51,195 +58,231 @@ $messages = $pdo->query("
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
         لوحة التحكم
     </title>
 
-    <link rel="stylesheet"
-          href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 
 </head>
 
 <body>
     <div class="container">
-      <nav>
+        <nav>
 
-        <a href="../contact.php" class="btn">ابدأ مشروعك</a>
+            <a href="../contact.php" class="btn">ابدأ مشروعك</a>
 
-        <ul class="nav-links">
-          <li><a href="../contact.php">تواصل معنا</a></li>
-          <li><a href="../projects.php">أعمالنا</a></li>
-          <li><a href="../index.php">الرئيسية</a></li>
-        </ul>
+            <ul class="nav-links">
+                <li><a href="../contact.php">تواصل معنا</a></li>
+                <li><a href="../projects.php">أعمالنا</a></li>
+                <li><a href="add-template.php">إضافة قالب</a></li>        
+                <li><a href="../index.php">الرئيسية</a></li>
 
-        <a href="../index.php" class="logo">
-          <img src="../assets/images/AG_Logo_RBG.png" alt="AG Solutions Logo">
-        </a>
+            </ul>
 
-      </nav>
-    </div>
-<div class="dashboard">
-
-    <div class="container">
-
-        <!-- Header -->
-<h1>
-                لوحة التحكم
-            </h1>
-        <div class="dashboard-header">
-
-            
-
-            <a href="add-project.php" class="btn">
-                إضافة مشروع
+            <a href="../index.php" class="logo">
+                <img src="../assets/images/AG_Logo_RBG.png" alt="AG Solutions Logo">
             </a>
 
-        <a href="logout.php" class="btn danger">
-            تسجيل الخروج
-        </a>
-</div>
-        
+        </nav>
+    </div>
+    <div class="dashboard">
 
-        <!-- Projects -->
+        <div class="container">
 
-        <div class="dashboard-grid">
+            <!-- Header -->
+            <h1>
+                لوحة التحكم
+            </h1>
+            <div class="dashboard-header">
 
-            <?php if(count($projects) > 0): ?>
 
-                <?php foreach ($projects as $project): ?>
 
-                    <div class="dashboard-card">
+                <a href="add-project.php" class="btn">
+                    إضافة مشروع
+                </a>
 
-                        <img 
-                            src="../<?= htmlspecialchars($project['project_image']) ?>" 
-                            alt="<?= htmlspecialchars($project['title']) ?>"
-                        >
+                <a href="logout.php" class="btn danger">
+                    تسجيل الخروج
+                </a>
+            </div>
 
-                        <h3>
-                            <?= htmlspecialchars($project['title']) ?>
-                        </h3>
 
-                        <p>
-                            <?= htmlspecialchars($project['description']) ?>
-                        </p>
+            <!-- Projects -->
 
-                        <div class="dashboard-actions">
+            <div class="dashboard-grid">
 
-                            <a href="edit-project.php?id=<?= $project['id'] ?>"
-                               class="btn">
-                                تعديل
-                            </a>
+                <?php if (count($projects) > 0): ?>
 
-                            <a href="delete-project.php?id=<?= $project['id'] ?>"
-                               class="btn danger"
-                               onclick="return confirm('هل أنت متأكد من حذف المشروع؟')">
-                                حذف
-                            </a>
+                    <?php foreach ($projects as $project): ?>
+
+                        <div class="dashboard-card">
+
+                            <img src="../<?= htmlspecialchars($project['project_image']) ?>"
+                                alt="<?= htmlspecialchars($project['title']) ?>">
+
+                            <h3>
+                                <?= htmlspecialchars($project['title']) ?>
+                            </h3>
+
+                            <p>
+                                <?= htmlspecialchars($project['description']) ?>
+                            </p>
+
+                            <div class="dashboard-actions">
+
+                                <a href="edit-project.php?id=<?= $project['id'] ?>" class="btn">
+                                    تعديل
+                                </a>
+
+                                <a href="delete-project.php?id=<?= $project['id'] ?>" class="btn danger"
+                                    onclick="return confirm('هل أنت متأكد من حذف المشروع؟')">
+                                    حذف
+                                </a>
+
+                            </div>
 
                         </div>
 
-                    </div>
+                    <?php endforeach; ?>
 
-                <?php endforeach; ?>
+                <?php else: ?>
 
-            <?php else: ?>
+                    <p>
+                        لا يوجد مشاريع حالياً
+                    </p>
 
-                <p>
-                    لا يوجد مشاريع حالياً
-                </p>
-
-            <?php endif; ?>
-
-        </div>
-
-        <!-- Messages -->
-
-        <div class="messages-section">
-
-            <div class="messages-header">
-
-                <h2>
-                    رسائل التواصل
-                </h2>
+                <?php endif; ?>
 
             </div>
 
-            <div class="table-wrapper">
 
-                <table class="messages-table">
+            <div class="messages-section">
 
-                    <thead>
+                <div class="messages-header">
+                    <h2>القوالب الجاهزة</h2>
+                </div>
 
-                        <tr>
+                <div class="dashboard-grid">
 
-                            <th>#</th>
-                            <th>الاسم</th>
-                            <th>البريد الإلكتروني</th>
-                            <th>الرسالة</th>
-                            <th>التاريخ</th>
+                    <?php foreach ($templates as $template): ?>
 
-                        </tr>
+                        <div class="dashboard-card">
 
-                    </thead>
+                            <img src="../<?= htmlspecialchars($template['image']) ?>" alt="">
 
-                    <tbody>
+                            <h3><?= htmlspecialchars($template['title']) ?></h3>
 
-                        <?php if(count($messages) > 0): ?>
+                            <p><?= htmlspecialchars($template['price']) ?> JOD</p>
 
-                            <?php foreach ($messages as $msg): ?>
+                            <div class="dashboard-actions">
+
+                                <a href="edit-template.php?id=<?= $template['id'] ?>" class="btn">
+                                    تعديل
+                                </a>
+
+                                <a href="delete-template.php?id=<?= $template['id'] ?>" class="btn danger"
+                                    onclick="return confirm('هل أنت متأكد من حذف القالب؟')">
+                                    حذف
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    <?php endforeach; ?>
+
+                </div>
+
+            </div>
+
+            <!-- Messages -->
+
+            <div class="messages-section">
+
+                <div class="messages-header">
+
+                    <h2>
+                        رسائل التواصل
+                    </h2>
+
+                </div>
+
+                <div class="table-wrapper">
+
+                    <table class="messages-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>#</th>
+                                <th>الاسم</th>
+                                <th>البريد الإلكتروني</th>
+                                <th>الرسالة</th>
+                                <th>التاريخ</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <?php if (count($messages) > 0): ?>
+
+                                <?php foreach ($messages as $msg): ?>
+
+                                    <tr>
+
+                                        <td>
+                                            <?= $msg['id'] ?>
+                                        </td>
+
+                                        <td>
+                                            <?= htmlspecialchars($msg['name']) ?>
+                                        </td>
+
+                                        <td>
+                                            <?= htmlspecialchars($msg['email']) ?>
+                                        </td>
+
+                                        <td class="message-text">
+                                            <?= nl2br(htmlspecialchars($msg['message'])) ?>
+                                        </td>
+
+                                        <td>
+                                            <?= $msg['created_at'] ?>
+                                        </td>
+
+                                    </tr>
+
+                                <?php endforeach; ?>
+
+                            <?php else: ?>
 
                                 <tr>
 
-                                    <td>
-                                        <?= $msg['id'] ?>
-                                    </td>
-
-                                    <td>
-                                        <?= htmlspecialchars($msg['name']) ?>
-                                    </td>
-
-                                    <td>
-                                        <?= htmlspecialchars($msg['email']) ?>
-                                    </td>
-
-                                    <td class="message-text">
-                                        <?= nl2br(htmlspecialchars($msg['message'])) ?>
-                                    </td>
-
-                                    <td>
-                                        <?= $msg['created_at'] ?>
+                                    <td colspan="5">
+                                        لا توجد رسائل حالياً
                                     </td>
 
                                 </tr>
 
-                            <?php endforeach; ?>
+                            <?php endif; ?>
 
-                        <?php else: ?>
+                        </tbody>
 
-                            <tr>
+                    </table>
 
-                                <td colspan="5">
-                                    لا توجد رسائل حالياً
-                                </td>
-
-                            </tr>
-
-                        <?php endif; ?>
-
-                    </tbody>
-
-                </table>
+                </div>
 
             </div>
 
         </div>
 
     </div>
-
-</div>
 
 </body>
 

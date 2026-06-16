@@ -36,7 +36,6 @@ $templates = $stmt->fetchAll();
             <ul class="nav-links">
                 <li><a href="index.php">الرئيسية</a></li>
                 <li><a href="projects.php">أعمالنا</a></li>
-                <li><a href="templates.php">القوالب</a></li>
                 <li><a href="contact.php">تواصل معنا</a></li>
             </ul>
 
