@@ -193,3 +193,6 @@ CREATE TABLE templates (
     demo_link VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+ALTER TABLE templates
+ADD file_path VARCHAR(255) NULL AFTER image;

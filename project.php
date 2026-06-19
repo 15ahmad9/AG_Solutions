@@ -1,6 +1,7 @@
 <?php
 
 require_once 'config/db.php';
+require_once 'config/lang.php';
 
 $id = $_GET['id'] ?? 0;
 
@@ -21,7 +22,7 @@ $stmt->execute([$id]);
 $currentProject = $stmt->fetch();
 
 if(!$currentProject){
-    die("المشروع غير موجود");
+    die(t('project_not_found'));
 }
 
 /*
@@ -43,7 +44,7 @@ $images = $imageStmt->fetchAll();
 ?>
 
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="<?= t('lang_code') ?>" dir="<?= t('dir') ?>">
 
 <head>
 
@@ -74,23 +75,52 @@ $images = $imageStmt->fetchAll();
   <!-- Header -->
 
   <header id="header">
-    <div class="container">
-      <nav>
-        <ul class="nav-links">
-                      <li><a href="index.php">الرئيسية</a></li>
-                                <li><a href="projects.php">أعمالنا</a></li>
-          <li><a href="contact.php">تواصل معنا</a></li>
+  <div class="container">
+    <nav class="navbar">
+
+      <a href="index.php" class="logo">
+        <img src="assets/images/AG_Logo_RBG.png" alt="AG Solutions Logo">
+      </a>
 
 
-        </ul>
+      <button class="menu-toggle" type="button" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
-        <a href="index.php" class="logo">
-          <img src="assets/images/AG_Logo_RBG.png" alt="AG Solutions Logo">
+
+<ul class="nav-links">
+        <li><a href="index.php"><?= t('home') ?></a></li>
+        <li><a href="index.php#services"><?= t('services') ?></a></li>
+        <li><a href="index.php#about"><?= t('about') ?></a></li>
+        <li><a href="templates.php"><?= t('templates') ?></a></li>
+        <li><a href="projects.php"><?= t('projects') ?></a></li>
+        <li><a href="contact.php"><?= t('contact') ?></a></li>
+      </ul>
+
+      <a href="contact.php" class="btn nav-cta">
+        <?= t('start_project') ?>
+      </a>
+
+      
+      <button class="theme-toggle" type="button" aria-label="Toggle theme">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+
+      <div class="lang-switcher">
+        <a
+          href="<?= switch_lang_url($lang === 'ar' ? 'en' : 'ar') ?>"
+          class="language-toggle"
+          aria-label="Switch language"
+        >
+          <?= t('language') ?>
         </a>
+      </div>
 
-      </nav>
-    </div>
-  </header>
+    </nav>
+  </div>
+</header>
 <section class="single-project">
 
     <div class="container">
@@ -110,7 +140,7 @@ $images = $imageStmt->fetchAll();
             <div class="project-tech">
 
                 <h3>
-                    التقنيات المستخدمة
+                    <?= t('technologies_used') ?>
                 </h3>
 
                 <p>
@@ -120,7 +150,7 @@ $images = $imageStmt->fetchAll();
             </div>
 
             <a href="index.php" class="btn">
-                العودة للرئيسية
+                <?= t('back_home') ?>
             </a>
 
         </div>

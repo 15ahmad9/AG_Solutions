@@ -1,6 +1,7 @@
 <?php
 
 require_once 'config/db.php';
+require_once 'config/lang.php';
 
 $success = false;
 
@@ -48,7 +49,7 @@ $projects = $stmt->fetchAll();
 
 
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="<?= t('lang_code') ?>" dir="<?= t('dir') ?>">
 
 <head>
   <meta charset="UTF-8" />
@@ -77,34 +78,52 @@ $projects = $stmt->fetchAll();
   <!-- Header -->
 
   <header id="header">
-<nav class="navbar">
+  <div class="container">
+    <nav class="navbar">
 
-  <!-- Logo -->
+      <a href="index.php" class="logo">
+        <img src="assets/images/AG_Logo_RBG.png" alt="AG Solutions Logo">
+      </a>
 
-  <a href="index.php" class="logo">
-    <img src="assets/images/AG_Logo_RBG.png" alt="AG Solutions Logo">
-  </a>
 
-  <!-- Navigation Links -->
+      <button class="menu-toggle" type="button" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
-  <ul class="nav-links">
-    <li><a href="index.php">الرئيسية</a></li>
-    <li><a href="#services">الخدمات</a></li>
-    <li><a href="#about">من نحن</a></li>
-    <li><a href="templates.php">القوالب</a></li>
-    <li><a href="projects.php">أعمالنا</a></li>
-    <li><a href="contact.php">تواصل معنا</a></li>
-  </ul>
 
-  <!-- Button -->
+<ul class="nav-links">
+        <li><a href="contact.php"><?= t('contact') ?></a></li>
+        <li><a href="projects.php"><?= t('projects') ?></a></li>
+        <li><a href="templates.php"><?= t('templates') ?></a></li>
+        <li><a href="#about"><?= t('about') ?></a></li>
+        <li><a href="#services"><?= t('services') ?></a></li>
+        <li><a href="index.php"><?= t('home') ?></a></li>
+      </ul>
 
-  <a href="#contact" class="btn">
-    ابدأ مشروعك
-  </a>
+      <a href="#contact" class="btn nav-cta">
+        <?= t('start_project') ?>
+      </a>
 
-</nav>
-    </div>
-  </header>
+      
+      <button class="theme-toggle" type="button" aria-label="Toggle theme">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+
+      <div class="lang-switcher">
+        <a
+          href="<?= switch_lang_url($lang === 'ar' ? 'en' : 'ar') ?>"
+          class="language-toggle"
+          aria-label="Switch language"
+        >
+          <?= t('language') ?>
+        </a>
+      </div>
+
+    </nav>
+  </div>
+</header>
 
   <!-- Hero -->
 
@@ -114,18 +133,17 @@ $projects = $stmt->fetchAll();
 
         <div class="hero-text">
           <h1>
-            نبني <span>مواقع إلكترونية</span>
-            احترافية تعكس قوة مشروعك
+            <?= t('hero_title_before') ?> <span><?= t('hero_title_highlight') ?></span>
+            <?= t('hero_title_after') ?>
           </h1>
 
           <p>
-            نقدم حلول تطوير ويب حديثة، سريعة ومتجاوبة تساعد الشركات والمتاجر والأعمال الناشئة على بناء حضور رقمي احترافي
-            وتحويل الأفكار إلى مشاريع حقيقية قابلة للتطبيق على أرض الواقع.
+            <?= t('hero_description') ?>
           </p>
 
           <div class="hero-buttons">
-            <a href="#projects" class="btn">شاهد أعمالنا</a>
-            <a href="#contact" class="btn btn-outline">تواصل معنا</a>
+            <a href="#projects" class="btn"><?= t('view_projects') ?></a>
+            <a href="#contact" class="btn btn-outline"><?= t('contact') ?></a>
           </div>
         </div>
 
@@ -162,34 +180,32 @@ $projects = $stmt->fetchAll();
         </div>
 
         <div class="about-text">
-          <h2> من نحن ؟؟ </h2>
+          <h2> <?= t('about_heading') ?> </h2>
 
           <p>
-            في AG Solutions، نعمل على تقديم حلول ويب وتقنية احترافية تساعد الشركات وأصحاب المشاريع على بناء حضور رقمي
-            قوي واحترافي، من خلال مواقع حديثة، أنظمة مخصصة، وتجربة مستخدم عالية الجودة، وتساعدك على الوصول إلى عملائك
-            بشكل أفضل.
+            <?= t('about_description') ?>
           </p>
 
           <div class="about-features">
 
             <div class="feature">
               <i class="fa-solid fa-check"></i>
-              <span>تصميم عصري</span>
+              <span><?= t('modern_design') ?></span>
             </div>
 
             <div class="feature">
               <i class="fa-solid fa-check"></i>
-              <span>أداء عالي</span>
+              <span><?= t('high_performance') ?></span>
             </div>
 
             <div class="feature">
               <i class="fa-solid fa-check"></i>
-              <span>متوافق مع جميع الأجهزة</span>
+              <span><?= t('responsive_devices') ?></span>
             </div>
 
             <div class="feature">
               <i class="fa-solid fa-check"></i>
-              <span>تحسين SEO</span>
+              <span><?= t('seo_optimization') ?></span>
             </div>
 
           </div>
@@ -205,9 +221,9 @@ $projects = $stmt->fetchAll();
     <div class="container">
 
       <div class="section-title">
-        <h2>خدماتنا</h2>
+        <h2><?= t('services_heading') ?></h2>
         <p>
-          نقدم حلول ويب متكاملة تجمع بين التصميم الحديث والأداء العالي.
+          <?= t('services_description') ?>
         </p>
       </div>
 
@@ -221,10 +237,10 @@ $projects = $stmt->fetchAll();
             <span class="plus">+</span>
           </div>
 
-          <h3>تصميم مواقع</h3>
+          <h3><?= t('web_design') ?></h3>
 
           <p>
-            تصميم مواقع احترافية متجاوبة مع جميع الأجهزة.
+            <?= t('web_design_desc') ?>
           </p>
         </div>
 
@@ -236,10 +252,10 @@ $projects = $stmt->fetchAll();
             <span class="plus">+</span>
           </div>
 
-          <h3>متاجر إلكترونية</h3>
+          <h3><?= t('ecommerce') ?></h3>
 
           <p>
-            إنشاء متاجر حديثة وسريعة مع تجربة مستخدم ممتازة.
+            <?= t('ecommerce_desc') ?>
           </p>
         </div>
 
@@ -251,10 +267,10 @@ $projects = $stmt->fetchAll();
             <span class="plus">+</span>
           </div>
 
-          <h3>تطوير Full Stack</h3>
+          <h3><?= t('full_stack') ?></h3>
 
           <p>
-            تطوير Frontend و Backend باستخدام أحدث التقنيات.
+            <?= t('full_stack_desc') ?>
           </p>
         </div>
 
@@ -270,9 +286,9 @@ $projects = $stmt->fetchAll();
     <div class="container">
 
       <div class="section-title">
-        <h2>أعمالنا</h2>
+        <h2><?= t('projects') ?></h2>
         <p>
-          مجموعة من المشاريع التي قمنا بتطويرها باحترافية عالية.
+          <?= t('projects_description') ?>
         </p>
       </div>
 
@@ -289,7 +305,7 @@ $projects = $stmt->fetchAll();
               نظام طلب طعام متكامل باستخدام React و Node.js.
             </p>
 
-            <a href="project-food.html" class="btn">عرض المشروع</a>
+            <a href="project-food.html" class="btn"><?= t('view_project') ?></a>
           </div>
         </div>
 
@@ -301,10 +317,10 @@ $projects = $stmt->fetchAll();
           <div class="project-content">
             <h3>Portfolio Website</h3>
             <p>
-              موقع شخصي احترافي لعرض الخدمات والأعمال.
+              موقع شخصي احترافي لعرض <?= t('services') ?> والأعمال.
             </p>
 
-            <a href="#" class="btn">عرض المشروع</a>
+            <a href="#" class="btn"><?= t('view_project') ?></a>
           </div>
         </div>
 
@@ -319,7 +335,7 @@ $projects = $stmt->fetchAll();
               لوحة تحكم احترافية لإدارة البيانات والمستخدمين.
             </p>
 
-            <a href="#" class="btn">عرض المشروع</a>
+            <a href="#" class="btn"><?= t('view_project') ?></a>
           </div>
         </div>
 
@@ -375,7 +391,7 @@ $projects = $stmt->fetchAll();
               </p>
 
               <a href="project.php?id=<?= $project['id'] ?>" class="btn">
-                عرض المشروع
+                <?= t('view_project') ?>
               </a>
 
             </div>
@@ -393,9 +409,9 @@ $projects = $stmt->fetchAll();
     <div class="container">
 
       <div class="section-title">
-        <h2>تواصل معنا</h2>
+        <h2><?= t('contact') ?></h2>
         <p>
-          جاهزون لتحويل فكرتك إلى موقع احترافي.
+          <?= t('contact_description') ?>
         </p>
       </div>
 
@@ -405,33 +421,33 @@ $projects = $stmt->fetchAll();
           <?php if ($success): ?>
 
             <div class="success-message">
-              تم إرسال رسالتك بنجاح
+              <?= t('message_success') ?>
             </div>
 
           <?php endif; ?>
           <form method="POST">
 
             <div class="input-group">
-              <input type="text" name="name" placeholder="الاسم الكامل" required>
+              <input type="text" name="name" placeholder="<?= t('full_name') ?>" required>
             </div>
 
             <div class="input-group">
-              <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+              <input type="email" name="email" placeholder="<?= t('email') ?>" required>
             </div>
 
             <div class="input-group">
-              <textarea name="message" rows="6" placeholder="اكتب رسالتك" required></textarea>
+              <textarea name="message" rows="6" placeholder="<?= t('write_message') ?>" required></textarea>
             </div>
 
             <button class="btn" type="submit">
-              إرسال الرسالة
+              <?= t('send_message') ?>
             </button>
 
           </form>
         </div>
 
         <div class="contact-info">
-          <h3>معلومات التواصل</h3>
+          <h3><?= t('contact_info') ?></h3>
 
           <div class="contact-item">
             <i class="fa-brands fa-whatsapp"></i>
@@ -463,7 +479,7 @@ $projects = $stmt->fetchAll();
   <footer>
     <div class="container">
       <p class="Copyright">Copyright &copy;
-        <script>document.write(new Date().getFullYear())</script> All rights reserved to AG Solutions
+        <script>document.write(new Date().getFullYear())</script> <?= t('copyright') ?>
       </p>
     </div>
   </footer>

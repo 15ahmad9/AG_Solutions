@@ -1,6 +1,7 @@
 <?php
 
 require_once 'config/db.php';
+require_once 'config/lang.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,7 @@ $projects = $stmt->fetchAll();
 ?>
 
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="<?= t('lang_code') ?>" dir="<?= t('dir') ?>">
 
 <head>
 
@@ -31,7 +32,7 @@ $projects = $stmt->fetchAll();
   <link rel="shortcut icon" href="assets/images/AG_Logo_RBG.png" type="image/x-icon">
 
     <title>
-        أعمالنا | AG Solutions
+        <?= t('projects') ?> | AG Solutions
     </title>
 
     <!-- Google Fonts -->
@@ -91,28 +92,64 @@ $projects = $stmt->fetchAll();
 <!-- Header -->
 
 <header id="header">
+  <div class="container">
+    <nav class="navbar">
 
-    <div class="container">
+      <a href="index.php" class="logo">
+        <img src="assets/images/AG_Logo_RBG.png" alt="AG Solutions Logo">
+      </a>
 
-        <nav>
+
+      <button class="menu-toggle" type="button" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    
+      <button class="menu-toggle" type="button" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+  
+      <button class="menu-toggle" type="button" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
 <ul class="nav-links">
-              <li><a href="index.php">الرئيسية</a></li>
-          <li><a href="contact.php">تواصل معنا</a></li>
+        <li><a href="index.php"><?= t('home') ?></a></li>
+        <li><a href="index.php#services"><?= t('services') ?></a></li>
+        <li><a href="index.php#about"><?= t('about') ?></a></li>
+        <li><a href="templates.php"><?= t('templates') ?></a></li>
+        <li><a href="projects.php"><?= t('projects') ?></a></li>
+        <li><a href="contact.php"><?= t('contact') ?></a></li>
+      </ul>
 
-        </ul>
+      <a href="contact.php" class="btn nav-cta">
+        <?= t('start_project') ?>
+      </a>
 
-            <a href="index.php" class="logo">
+      
+      <button class="theme-toggle" type="button" aria-label="Toggle theme">
+        <i class="fa-solid fa-moon"></i>
+      </button>
 
-                <img src="assets/images/AG_Logo_RBG.png"
-                     alt="AG Solutions">
+      <div class="lang-switcher">
+        <a
+          href="<?= switch_lang_url($lang === 'ar' ? 'en' : 'ar') ?>"
+          class="language-toggle"
+          aria-label="Switch language"
+        >
+          <?= t('language') ?>
+        </a>
+      </div>
 
-            </a>
-
-        </nav>
-
-    </div>
-
+    </nav>
+  </div>
 </header>
 
 <!-- Projects Page -->
@@ -124,11 +161,11 @@ $projects = $stmt->fetchAll();
         <div class="page-title">
 
             <h1>
-                أعمالنا
+                <?= t('projects') ?>
             </h1>
 
             <p>
-                مجموعة من المشاريع التي قمنا بتطويرها باحترافية عالية
+                <?= t('projects_description') ?>
             </p>
 
         </div>
@@ -184,7 +221,7 @@ $projects = $stmt->fetchAll();
                             <a href="project.php?id=<?= $project['id'] ?>"
                                class="btn">
 
-                                عرض المشروع
+                                <?= t('view_project') ?>
 
                             </a>
 
@@ -197,7 +234,7 @@ $projects = $stmt->fetchAll();
             <?php else: ?>
 
                 <p>
-                    لا توجد مشاريع حالياً
+                    <?= t('no_projects') ?>
                 </p>
 
             <?php endif; ?>
@@ -207,7 +244,7 @@ $projects = $stmt->fetchAll();
         <div class="back-home">
 
             <a href="index.php" class="btn">
-                العودة للرئيسية
+                <?= t('back_home') ?>
             </a>
 
         </div>

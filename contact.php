@@ -1,12 +1,13 @@
 <?php
 
 require_once 'config/db.php';
+require_once 'config/lang.php';
 
 $success = false;
 
 /*
 |--------------------------------------------------------------------------
-| إرسال الرسالة
+| <?= t('send_message') ?>
 |--------------------------------------------------------------------------
 */
 
@@ -43,7 +44,7 @@ if(isset($_GET['success'])){
 ?>
 
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="<?= t('lang_code') ?>" dir="<?= t('dir') ?>">
 
 <head>
 
@@ -55,7 +56,7 @@ if(isset($_GET['success'])){
   <link rel="shortcut icon" href="assets/images/AG_Logo_RBG.png" type="image/x-icon">
 
     <title>
-        تواصل معنا | AG Solutions
+        <?= t('contact') ?> | AG Solutions
     </title>
 
     <!-- Google Fonts -->
@@ -124,27 +125,50 @@ if(isset($_GET['success'])){
 <!-- Header -->
 
 <header id="header">
+  <div class="container">
+    <nav class="navbar">
 
-    <div class="container">
+      <a href="index.php" class="logo">
+        <img src="assets/images/AG_Logo_RBG.png" alt="AG Solutions Logo">
+      </a>
 
-        <nav>
+
+      <button class="menu-toggle" type="button" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
 <ul class="nav-links">
-    <li><a href="index.php">الرئيسية</a></li>
-          <li><a href="projects.php">أعمالنا</a></li>
-        </ul>
+        <li><a href="index.php"><?= t('home') ?></a></li>
+        <li><a href="index.php#services"><?= t('services') ?></a></li>
+        <li><a href="index.php#about"><?= t('about') ?></a></li>
+        <li><a href="templates.php"><?= t('templates') ?></a></li>
+        <li><a href="projects.php"><?= t('projects') ?></a></li>
+        <li><a href="contact.php"><?= t('contact') ?></a></li>
+      </ul>
 
-            <a href="index.php" class="logo">
+      <a href="contact.php" class="btn nav-cta">
+        <?= t('start_project') ?>
+      </a>
 
-                <img src="assets/images/AG_Logo_RBG.png"
-                     alt="AG Solutions">
+      
+      <button class="theme-toggle" type="button" aria-label="Toggle theme">
+        <i class="fa-solid fa-moon"></i>
+      </button>
 
-            </a>
+      <div class="lang-switcher">
+        <a
+          href="<?= switch_lang_url($lang === 'ar' ? 'en' : 'ar') ?>"
+          class="language-toggle"
+          aria-label="Switch language"
+        >
+          <?= t('language') ?>
+        </a>
+      </div>
 
-        </nav>
-
-    </div>
-
+    </nav>
+  </div>
 </header>
 
 <!-- Contact Page -->
@@ -156,11 +180,11 @@ if(isset($_GET['success'])){
         <div class="page-title">
 
             <h1>
-                تواصل معنا
+                <?= t('contact') ?>
             </h1>
 
             <p>
-                جاهزون لتحويل فكرتك إلى موقع احترافي
+                <?= t('contact_description') ?>
             </p>
 
         </div>
@@ -174,7 +198,7 @@ if(isset($_GET['success'])){
                 <?php if($success): ?>
 
                     <div class="success-message">
-                        تم إرسال رسالتك بنجاح
+                        <?= t('message_success') ?>
                     </div>
 
                 <?php endif; ?>
@@ -185,7 +209,7 @@ if(isset($_GET['success'])){
 
                         <input type="text"
                                name="name"
-                               placeholder="الاسم الكامل"
+                               placeholder="<?= t('full_name') ?>"
                                required>
 
                     </div>
@@ -194,7 +218,7 @@ if(isset($_GET['success'])){
 
                         <input type="email"
                                name="email"
-                               placeholder="البريد الإلكتروني"
+                               placeholder="<?= t('email') ?>"
                                required>
 
                     </div>
@@ -203,13 +227,13 @@ if(isset($_GET['success'])){
 
                         <textarea name="message"
                                   rows="7"
-                                  placeholder="اكتب رسالتك"
+                                  placeholder="<?= t('write_message') ?>"
                                   required></textarea>
 
                     </div>
 
                     <button class="btn" type="submit">
-                        إرسال الرسالة
+                        <?= t('send_message') ?>
                     </button>
 
                 </form>
@@ -221,7 +245,7 @@ if(isset($_GET['success'])){
             <div class="contact-info">
 
                 <h3>
-                    معلومات التواصل
+                    <?= t('contact_info') ?>
                 </h3>
 
                 <div class="contact-item">
@@ -264,7 +288,7 @@ if(isset($_GET['success'])){
         <div class="back-home">
 
             <a href="index.php" class="btn">
-                العودة للرئيسية
+                <?= t('back_home') ?>
             </a>
 
         </div>
