@@ -225,6 +225,18 @@ $projects = $stmt->fetchAll();
 
                             </a>
 
+                            <?php if(!empty($project['website_url'])): ?>
+
+                            <a href="<?= htmlspecialchars($project['website_url']) ?>"
+                               target="_blank"
+                               class="btn">
+
+                                زيارة الموقع
+
+                            </a>
+
+                            <?php endif; ?>
+
                         </div>
 
                     </div>

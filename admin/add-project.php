@@ -17,6 +17,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $description = trim($_POST['description']);
     $technologies = trim($_POST['technologies']);
     $content = trim($_POST['content']);
+    $website_url = trim($_POST['website_url']);
 
     /*
     |--------------------------------------------------------------------------
@@ -30,16 +31,18 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             title,
             description,
             content,
-            technologies
+            technologies,
+            website_url
         )
-        VALUES(?, ?, ?, ?)
+        VALUES(?, ?, ?, ?, ?)
     ");
 
     $stmt->execute([
         $title,
         $description,
         $content,
-        $technologies
+        $technologies,
+        $website_url
     ]);
 
     /*
@@ -173,6 +176,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                     type="text"
                     name="technologies"
                     placeholder="التقنيات المستخدمة"
+                >
+
+            </div>
+
+            <div class="input-group">
+
+                <input
+                    type="url"
+                    name="website_url"
+                    placeholder="رابط الموقع (https://example.com)"
                 >
 
             </div>

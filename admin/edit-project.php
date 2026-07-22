@@ -61,6 +61,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $description = trim($_POST['description']);
     $content = trim($_POST['content']);
     $technologies = trim($_POST['technologies']);
+    $website_url = trim($_POST['website_url']);
 
     /*
     |--------------------------------------------------------------------------
@@ -74,7 +75,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             title = ?,
             description = ?,
             content = ?,
-            technologies = ?
+            technologies = ?,
+            website_url = ?
         WHERE id = ?
     ");
 
@@ -83,6 +85,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $description,
         $content,
         $technologies,
+        $website_url,
         $id
     ]);
 
@@ -225,6 +228,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                     type="text"
                     name="technologies"
                     value="<?= htmlspecialchars($project['technologies']) ?>"
+                >
+
+            </div>
+
+            <div class="input-group">
+
+                <input
+                    type="url"
+                    name="website_url"
+                    value="<?= htmlspecialchars($project['website_url'] ?? '') ?>"
+                    placeholder="رابط الموقع (https://example.com)"
                 >
 
             </div>

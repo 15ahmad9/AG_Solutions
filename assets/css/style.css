@@ -1751,3 +1751,8 @@ html[data-theme="light"] .menu-toggle span{
         max-width:100%;
     }
 }
+
+
+.project-website{margin:25px 0;}
+.project-website h3{margin-bottom:12px;}
+.project-website .btn{display:inline-flex;gap:8px;align-items:center;}

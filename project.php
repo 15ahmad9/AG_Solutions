@@ -137,6 +137,29 @@ $images = $imageStmt->fetchAll();
                 <?= nl2br($currentProject['content']) ?>
             </p>
 
+            <?php if(!empty($currentProject['website_url'])): ?>
+
+            <div class="project-website">
+
+                <h3>
+                    Website
+                </h3>
+
+                <a 
+                    href="<?= htmlspecialchars($currentProject['website_url']) ?>"
+                    class="btn"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <i class="fa-solid fa-globe"></i>
+                    Visit Website
+                </a>
+
+            </div>
+
+            <?php endif; ?>
+
+
             <div class="project-tech">
 
                 <h3>
