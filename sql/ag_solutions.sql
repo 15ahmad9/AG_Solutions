@@ -196,3 +196,5 @@ CREATE TABLE templates (
 
 ALTER TABLE templates
 ADD file_path VARCHAR(255) NULL AFTER image;
+
+ALTER TABLE projects ADD website_url VARCHAR(500) DEFAULT NULL;
