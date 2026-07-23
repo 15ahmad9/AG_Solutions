@@ -69,25 +69,23 @@ $messages = $pdo->query("
 </head>
 
 <body>
-    <div class="container">
-        <nav>
-
-            <a href="../contact.php" class="btn">ابدأ مشروعك</a>
-
-            <ul class="nav-links">
-                <li><a href="../contact.php">تواصل معنا</a></li>
-                <li><a href="../projects.php">أعمالنا</a></li>
-                <li><a href="add-template.php">إضافة قالب</a></li>        
-                <li><a href="../index.php">الرئيسية</a></li>
-
-            </ul>
-
-            <a href="../index.php" class="logo">
+    <div class="container admin-shell-nav">
+        <nav class="admin-navbar">
+            <a href="../index.php" class="logo" aria-label="AG Solutions">
                 <img src="../assets/images/AG_Logo_RBG.png" alt="AG Solutions Logo">
             </a>
 
+            <ul class="admin-nav-links">
+                <li><a href="../index.php">الرئيسية</a></li>
+                <li><a href="../projects.php">أعمالنا</a></li>
+                <li><a href="add-template.php">إضافة قالب</a></li>
+                <li><a href="../contact.php">تواصل معنا</a></li>
+            </ul>
+
+            <a href="add-project.php" class="btn">مشروع جديد</a>
         </nav>
     </div>
+
     <div class="dashboard">
 
         <div class="container">

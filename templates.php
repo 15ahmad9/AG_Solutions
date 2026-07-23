@@ -21,6 +21,7 @@ $templates = $stmt->fetchAll();
 
     <link rel="shortcut icon" href="assets/images/AG_Logo_RBG.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
@@ -29,20 +30,15 @@ $templates = $stmt->fetchAll();
 <header id="header">
   <div class="container">
     <nav class="navbar">
-
-      <a href="index.php" class="logo">
+      <a href="index.php" class="logo" aria-label="AG Solutions">
         <img src="assets/images/AG_Logo_RBG.png" alt="AG Solutions Logo">
       </a>
 
-
       <button class="menu-toggle" type="button" aria-label="Open menu">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </button>
 
-
-<ul class="nav-links">
+      <ul class="nav-links">
         <li><a href="index.php"><?= t('home') ?></a></li>
         <li><a href="index.php#services"><?= t('services') ?></a></li>
         <li><a href="index.php#about"><?= t('about') ?></a></li>
@@ -52,24 +48,20 @@ $templates = $stmt->fetchAll();
       </ul>
 
       <a href="contact.php" class="btn nav-cta">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
         <?= t('start_project') ?>
       </a>
 
-      
       <button class="theme-toggle" type="button" aria-label="Toggle theme">
         <i class="fa-solid fa-moon"></i>
       </button>
 
       <div class="lang-switcher">
-        <a
-          href="<?= switch_lang_url($lang === 'ar' ? 'en' : 'ar') ?>"
-          class="language-toggle"
-          aria-label="Switch language"
-        >
+        <a href="<?= switch_lang_url($lang === 'ar' ? 'en' : 'ar') ?>"
+           class="language-toggle" aria-label="Switch language">
           <?= t('language') ?>
         </a>
       </div>
-
     </nav>
   </div>
 </header>
@@ -86,6 +78,7 @@ $templates = $stmt->fetchAll();
 
         <div class="templates-grid">
 
+            <?php if(count($templates) > 0): ?>
             <?php foreach($templates as $template): ?>
 
                 <div class="template-card">
@@ -105,7 +98,7 @@ $templates = $stmt->fetchAll();
                         </p>
 
                         <div class="template-price">
-                            <?= htmlspecialchars($template['price']) ?> JOD
+                            <?= htmlspecialchars($template['price']) ?> <?= t('currency') ?>
                         </div>
 
                         <div class="template-actions">
@@ -127,6 +120,9 @@ $templates = $stmt->fetchAll();
                 </div>
 
             <?php endforeach; ?>
+            <?php else: ?>
+                <p class="empty-state"><?= t('no_templates') ?></p>
+            <?php endif; ?>
 
         </div>
 

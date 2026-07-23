@@ -80,47 +80,38 @@ $projects = $stmt->fetchAll();
   <header id="header">
   <div class="container">
     <nav class="navbar">
-
-      <a href="index.php" class="logo">
+      <a href="index.php" class="logo" aria-label="AG Solutions">
         <img src="assets/images/AG_Logo_RBG.png" alt="AG Solutions Logo">
       </a>
 
-
       <button class="menu-toggle" type="button" aria-label="Open menu">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </button>
 
-
-<ul class="nav-links">
-        <li><a href="contact.php"><?= t('contact') ?></a></li>
-        <li><a href="projects.php"><?= t('projects') ?></a></li>
-        <li><a href="templates.php"><?= t('templates') ?></a></li>
-        <li><a href="#about"><?= t('about') ?></a></li>
-        <li><a href="#services"><?= t('services') ?></a></li>
+      <ul class="nav-links">
         <li><a href="index.php"><?= t('home') ?></a></li>
+        <li><a href="index.php#services"><?= t('services') ?></a></li>
+        <li><a href="index.php#about"><?= t('about') ?></a></li>
+        <li><a href="templates.php"><?= t('templates') ?></a></li>
+        <li><a href="projects.php"><?= t('projects') ?></a></li>
+        <li><a href="contact.php"><?= t('contact') ?></a></li>
       </ul>
 
-      <a href="#contact" class="btn nav-cta">
+      <a href="contact.php" class="btn nav-cta">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
         <?= t('start_project') ?>
       </a>
 
-      
       <button class="theme-toggle" type="button" aria-label="Toggle theme">
         <i class="fa-solid fa-moon"></i>
       </button>
 
       <div class="lang-switcher">
-        <a
-          href="<?= switch_lang_url($lang === 'ar' ? 'en' : 'ar') ?>"
-          class="language-toggle"
-          aria-label="Switch language"
-        >
+        <a href="<?= switch_lang_url($lang === 'ar' ? 'en' : 'ar') ?>"
+           class="language-toggle" aria-label="Switch language">
           <?= t('language') ?>
         </a>
       </div>
-
     </nav>
   </div>
 </header>
@@ -128,10 +119,13 @@ $projects = $stmt->fetchAll();
   <!-- Hero -->
 
   <section class="hero" id="home">
+    <div class="hero-marquee hero-marquee-top"><div><span>IDEA</span> <b>DESIGN</b> <span>DEVELOPMENT</span> <b>TESTING</b> <span>LAUNCH</span> <b>GROWTH</b> <span>DIGITAL SUCCESS</span></div></div>
+    <div class="hero-marquee hero-marquee-bottom"><div><b>PLAN</b> <span>CREATE</span> <b>BUILD</b> <span>DEPLOY</span> <b>OPTIMIZE</b> <span>EXPAND</span></div></div>
     <div class="container">
       <div class="hero-content">
 
         <div class="hero-text">
+          <div class="hero-badge"><?= t('hero_badge') ?></div>
           <h1>
             <?= t('hero_title_before') ?> <span><?= t('hero_title_highlight') ?></span>
             <?= t('hero_title_after') ?>
@@ -142,8 +136,14 @@ $projects = $stmt->fetchAll();
           </p>
 
           <div class="hero-buttons">
-            <a href="#projects" class="btn"><?= t('view_projects') ?></a>
-            <a href="#contact" class="btn btn-outline"><?= t('contact') ?></a>
+            <a href="#projects" class="btn"><i class="fa-solid fa-arrow-down"></i><?= t('view_projects') ?></a>
+            <a href="#contact" class="btn btn-outline"><i class="fa-regular fa-paper-plane"></i><?= t('contact') ?></a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="hero-stat"><strong>60+</strong><span><?= t('hero_stat_projects') ?></span></div>
+            <div class="hero-stat"><strong>100%</strong><span><?= t('hero_stat_responsive') ?></span></div>
+            <div class="hero-stat"><strong>24/7</strong><span><?= t('hero_stat_support') ?></span></div>
           </div>
         </div>
 
@@ -166,6 +166,7 @@ $projects = $stmt->fetchAll();
 
       </div>
     </div>
+  <div class="hero-marquee hero-marquee-bottom"><div><b>FROM IDEA</b> <span>TO DESIGN</span> <b>TO DEVELOPMENT</b> <span>TO LAUNCH</span> <b>YOUR DIGITAL FUTURE</b></div></div>
   </section>
 
   <!-- About -->
@@ -229,7 +230,7 @@ $projects = $stmt->fetchAll();
 
       <div class="services-grid">
 
-        <div class="service-card">
+        <article class="service-card">
           <i class="fa-solid fa-laptop-code"></i>
 
           <div class="service-counter">
@@ -242,9 +243,9 @@ $projects = $stmt->fetchAll();
           <p>
             <?= t('web_design_desc') ?>
           </p>
-        </div>
+        </article>
 
-        <div class="service-card">
+        <article class="service-card">
           <i class="fa-solid fa-cart-shopping"></i>
 
           <div class="service-counter">
@@ -257,9 +258,9 @@ $projects = $stmt->fetchAll();
           <p>
             <?= t('ecommerce_desc') ?>
           </p>
-        </div>
+        </article>
 
-        <div class="service-card">
+        <article class="service-card">
           <i class="fa-solid fa-code"></i>
 
           <div class="service-counter">
@@ -272,13 +273,55 @@ $projects = $stmt->fetchAll();
           <p>
             <?= t('full_stack_desc') ?>
           </p>
-        </div>
+        </article>
 
       </div>
     </div>
   </section>
 
 
+
+  <!-- Process -->
+  <section class="process-section premium-process launch-journey" id="process">
+    <div class="container">
+      <div class="section-title">
+        <h2><?= t('process_heading') ?></h2>
+        <p><?= t('process_description') ?></p>
+      </div>
+
+      <div class="process-grid premium-timeline animated-timeline" role="list">
+        <article class="process-card journey-card process-discovery" role="listitem">
+          <span class="step-number" aria-hidden="true">01</span>
+          <h3><?= t('process_discovery') ?></h3>
+          <p><?= t('process_discovery_desc') ?></p>
+        </article>
+
+        <article class="process-card journey-card process-strategy" role="listitem">
+          <span class="step-number" aria-hidden="true">02</span>
+          <h3><?= t('process_strategy') ?></h3>
+          <p><?= t('process_strategy_desc') ?></p>
+        </article>
+
+        <article class="process-card journey-card process-design" role="listitem">
+          <span class="step-number" aria-hidden="true">03</span>
+          <h3><?= t('process_design') ?></h3>
+          <p><?= t('process_design_desc') ?></p>
+        </article>
+
+        <article class="process-card journey-card process-development" role="listitem">
+          <span class="step-number" aria-hidden="true">04</span>
+          <h3><?= t('process_development') ?></h3>
+          <p><?= t('process_development_desc') ?></p>
+        </article>
+
+        <article class="process-card journey-card process-launch" role="listitem">
+          <span class="step-number" aria-hidden="true">05</span>
+          <h3><?= t('process_launch') ?></h3>
+          <p><?= t('process_launch_desc') ?></p>
+        </article>
+      </div>
+    </div>
+  </section>
 
   <!-- Projects -->
 
@@ -376,7 +419,7 @@ $projects = $stmt->fetchAll();
 
             <div class="project-image">
 
-              <img src="<?= htmlspecialchars($projectImage['image']) ?>" alt="<?= htmlspecialchars($project['title']) ?>">
+              <img src="<?= htmlspecialchars($projectImage['image'] ?? 'assets/images/AG_Logo_RBG.png') ?>" alt="<?= htmlspecialchars($project['title']) ?>">
 
             </div>
 
@@ -401,6 +444,7 @@ $projects = $stmt->fetchAll();
         <?php endforeach; ?>
 
       </div>
+    </div>
   </section>
 
   <!-- Contact -->
@@ -486,6 +530,9 @@ $projects = $stmt->fetchAll();
 
   <!-- Custom JS -->
   <script src="assets/js/main.js"></script>
+
+
+  <button class="back-to-top" aria-label="Back to top">↑</button>
 
 </body>
 

@@ -56,35 +56,6 @@ $projects = $stmt->fetchAll();
 
     <link rel="stylesheet"
           href="assets/css/style.css">
-
-    <style>
-
-        .projects-page{
-            padding:120px 0 80px;
-            min-height:100vh;
-        }
-
-        .page-title{
-            text-align:center;
-            margin-bottom:60px;
-        }
-
-        .page-title h1{
-            font-size:42px;
-            margin-bottom:15px;
-        }
-
-        .page-title p{
-            color:#777;
-            font-size:18px;
-        }
-
-                .back-home{
-            text-align:center;
-            margin-top:60px;
-        }
-    </style>
-
 </head>
 
 <body>
@@ -94,33 +65,15 @@ $projects = $stmt->fetchAll();
 <header id="header">
   <div class="container">
     <nav class="navbar">
-
-      <a href="index.php" class="logo">
+      <a href="index.php" class="logo" aria-label="AG Solutions">
         <img src="assets/images/AG_Logo_RBG.png" alt="AG Solutions Logo">
       </a>
 
-
       <button class="menu-toggle" type="button" aria-label="Open menu">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </button>
 
-    
-      <button class="menu-toggle" type="button" aria-label="Open menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-  
-      <button class="menu-toggle" type="button" aria-label="Open menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-<ul class="nav-links">
+      <ul class="nav-links">
         <li><a href="index.php"><?= t('home') ?></a></li>
         <li><a href="index.php#services"><?= t('services') ?></a></li>
         <li><a href="index.php#about"><?= t('about') ?></a></li>
@@ -130,24 +83,20 @@ $projects = $stmt->fetchAll();
       </ul>
 
       <a href="contact.php" class="btn nav-cta">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
         <?= t('start_project') ?>
       </a>
 
-      
       <button class="theme-toggle" type="button" aria-label="Toggle theme">
         <i class="fa-solid fa-moon"></i>
       </button>
 
       <div class="lang-switcher">
-        <a
-          href="<?= switch_lang_url($lang === 'ar' ? 'en' : 'ar') ?>"
-          class="language-toggle"
-          aria-label="Switch language"
-        >
+        <a href="<?= switch_lang_url($lang === 'ar' ? 'en' : 'ar') ?>"
+           class="language-toggle" aria-label="Switch language">
           <?= t('language') ?>
         </a>
       </div>
-
     </nav>
   </div>
 </header>
@@ -202,7 +151,7 @@ $projects = $stmt->fetchAll();
                         <div class="project-image">
 
                             <img 
-                                src="<?= htmlspecialchars($projectImage['image']) ?>" 
+                                src="<?= htmlspecialchars($projectImage['image'] ?? 'assets/images/AG_Logo_RBG.png') ?>" 
                                 alt="<?= htmlspecialchars($project['title']) ?>"
                             >
 
@@ -229,9 +178,11 @@ $projects = $stmt->fetchAll();
 
                             <a href="<?= htmlspecialchars($project['website_url']) ?>"
                                target="_blank"
-                               class="btn">
+                               rel="noopener noreferrer"
+                               class="btn btn-outline">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
 
-                                زيارة الموقع
+                                <?= t('visit_website') ?>
 
                             </a>
 
@@ -265,6 +216,7 @@ $projects = $stmt->fetchAll();
 
 </section>
 
+<script src="assets/js/main.js"></script>
 </body>
 
 </html>

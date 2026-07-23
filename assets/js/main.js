@@ -1,199 +1,195 @@
-  // Navbar Scroll Effect
+(() => {
+  'use strict';
 
+  const doc = document.documentElement;
   const header = document.getElementById('header');
 
-  window.addEventListener('scroll', () => {
-    if(window.scrollY > 50) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-  });
+  // Floating header state
+  const updateHeader = () => {
+    if (!header) return;
+    header.classList.toggle('scrolled', window.scrollY > 24);
+  };
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
 
-  // Counter Animation
+  // Theme
+  const themeToggle = document.querySelector('.theme-toggle');
+  const savedTheme = localStorage.getItem('ag_theme');
+  const preferredTheme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  const initialTheme = savedTheme || preferredTheme;
 
-  const counters = document.querySelectorAll('.counter');
-
-  const startCounter = (counter) => {
-    const target = +counter.getAttribute('data-target');
-
-    let count = 0;
-
-    const updateCounter = () => {
-
-      const increment = target / 60;
-
-      if(count < target) {
-
-        count += increment;
-
-        counter.innerText = Math.ceil(count);
-
-        requestAnimationFrame(updateCounter);
-
-      } else {
-
-        counter.innerText = target;
-
-      }
-    };
-
-    updateCounter();
+  const setTheme = (theme) => {
+    doc.setAttribute('data-theme', theme);
+    if (!themeToggle) return;
+    const icon = themeToggle.querySelector('i');
+    if (!icon) return;
+    icon.classList.toggle('fa-sun', theme === 'light');
+    icon.classList.toggle('fa-moon', theme !== 'light');
+    themeToggle.setAttribute('aria-label', theme === 'light' ? 'Use dark theme' : 'Use light theme');
   };
 
-  // Intersection Observer
-
-  const observer = new IntersectionObserver((entries) => {
-
-    entries.forEach(entry => {
-
-      if(entry.isIntersecting) {
-
-        const counter = entry.target;
-
-        startCounter(counter);
-
-        observer.unobserve(counter);
-
-      }
-
-    });
-
-  }, {
-    threshold: 0.5
+  setTheme(initialTheme);
+  themeToggle?.addEventListener('click', () => {
+    const nextTheme = doc.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    localStorage.setItem('ag_theme', nextTheme);
+    setTheme(nextTheme);
   });
 
-  counters.forEach(counter => {
-    observer.observe(counter);
+  // Mobile navigation
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+
+  const closeMenu = () => {
+    menuToggle?.classList.remove('active');
+    navLinks?.classList.remove('active');
+    menuToggle?.setAttribute('aria-expanded', 'false');
+  };
+
+  menuToggle?.setAttribute('aria-expanded', 'false');
+  menuToggle?.addEventListener('click', () => {
+    const isOpen = navLinks?.classList.toggle('active') ?? false;
+    menuToggle.classList.toggle('active', isOpen);
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
   });
 
-  // Slider
+  navLinks?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+  document.addEventListener('click', (event) => {
+    if (!navLinks?.classList.contains('active')) return;
+    if (event.target.closest('.navbar')) return;
+    closeMenu();
+  });
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 900) closeMenu();
+  });
 
-const slides = document.querySelector('.slides');
+  // Counters
+  const counters = [...document.querySelectorAll('.counter')];
+  const animateCounter = (counter) => {
+    if (counter.dataset.animated === 'true') return;
+    counter.dataset.animated = 'true';
+    const target = Number(counter.dataset.target || 0);
+    const duration = 1200;
+    const start = performance.now();
 
-if(slides){
+    const tick = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      counter.textContent = String(Math.round(target * eased));
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
 
-    const slide = document.querySelectorAll('.slide');
+  if ('IntersectionObserver' in window) {
+    const counterObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        animateCounter(entry.target);
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.45 });
+    counters.forEach((counter) => counterObserver.observe(counter));
+  } else {
+    counters.forEach(animateCounter);
+  }
 
-    const nextBtn = document.querySelector('.next');
+  // Hero presentation slider
+  const heroSlides = [...document.querySelectorAll('.hero-slide')];
+  let heroIndex = Math.max(heroSlides.findIndex((slide) => slide.classList.contains('active')), 0);
+  if (heroSlides.length) heroSlides[heroIndex].classList.add('active');
+  if (heroSlides.length > 1) {
+    window.setInterval(() => {
+      heroSlides[heroIndex].classList.remove('active');
+      heroIndex = (heroIndex + 1) % heroSlides.length;
+      heroSlides[heroIndex].classList.add('active');
+    }, 3800);
+  }
 
-    const prevBtn = document.querySelector('.prev');
-
+  // Project image slider
+  const slidesTrack = document.querySelector('.slides');
+  if (slidesTrack) {
+    const slides = [...slidesTrack.querySelectorAll('.slide')];
+    const next = document.querySelector('.slider-btn.next');
+    const previous = document.querySelector('.slider-btn.prev');
+    const isRtl = doc.dir === 'rtl';
     let index = 0;
 
-    function updateSlider(){
+    const renderSlider = () => {
+      const offset = index * 100 * (isRtl ? 1 : -1);
+      slidesTrack.style.transform = `translateX(${offset}%)`;
+    };
 
-        slides.style.transform =
-            `translateX(${index * 100}%)`;
-
-    }
-
-    nextBtn.addEventListener('click', () => {
-
-        index++;
-
-        if(index >= slide.length){
-            index = 0;
-        }
-
-        updateSlider();
-
+    next?.addEventListener('click', () => {
+      index = (index + 1) % slides.length;
+      renderSlider();
     });
-
-    prevBtn.addEventListener('click', () => {
-
-        index--;
-
-        if(index < 0){
-            index = slide.length - 1;
-        }
-
-        updateSlider();
-
+    previous?.addEventListener('click', () => {
+      index = (index - 1 + slides.length) % slides.length;
+      renderSlider();
     });
+  }
 
+  // Progressive reveal
+  const revealTargets = document.querySelectorAll(
+    '.service-card, .project-card, .template-card, .feature, .process-card, .contact-form, .contact-info, .about-image, .about-text, .project-details, .slider'
+  );
+
+  revealTargets.forEach((item, index) => {
+    item.classList.add('reveal-item');
+    item.style.transitionDelay = `${Math.min(index % 4, 3) * 70}ms`;
+  });
+
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -35px' });
+    revealTargets.forEach((item) => revealObserver.observe(item));
+  } else {
+    revealTargets.forEach((item) => item.classList.add('is-visible'));
+  }
+})();
+
+
+// Premium timeline reveal
+const journeyItems = [...document.querySelectorAll('.journey-card')];
+
+if ('IntersectionObserver' in window) {
+  const journeyObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const itemIndex = journeyItems.indexOf(entry.target);
+      window.setTimeout(() => entry.target.classList.add('show'), Math.max(itemIndex, 0) * 110);
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.14 });
+
+  journeyItems.forEach((item) => journeyObserver.observe(item));
+} else {
+  journeyItems.forEach((item) => item.classList.add('show'));
 }
 
 
-/* ========================================
-   Hero Slider
-======================================== */
+// Back to top button
+document.addEventListener('DOMContentLoaded', () => {
+ const btn = document.querySelector('.back-to-top');
+ if (!btn) return;
 
-const heroSlides = document.querySelectorAll('.hero-slide');
+ const toggleButton = () => {
+   if (window.scrollY > 300) {
+     btn.classList.add('show');
+   } else {
+     btn.classList.remove('show');
+   }
+ };
 
-let heroIndex = 0;
+ toggleButton();
+ window.addEventListener('scroll', toggleButton, {passive:true});
 
-function changeHeroSlide(){
-
-    heroSlides.forEach(slide => {
-        slide.classList.remove('active');
-    });
-
-    heroIndex++;
-
-    if(heroIndex >= heroSlides.length){
-        heroIndex = 0;
-    }
-
-    heroSlides[heroIndex].classList.add('active');
-
-}
-
-setInterval(changeHeroSlide, 3000);
-
-/* =====================================================
-   Dark / Light Mode
-===================================================== */
-
-const themeToggle = document.querySelector('.theme-toggle');
-const themeIcon = themeToggle ? themeToggle.querySelector('i') : null;
-const savedTheme = localStorage.getItem('ag_theme') || 'dark';
-
-document.documentElement.setAttribute('data-theme', savedTheme);
-
-function updateThemeIcon(theme){
-    if(!themeIcon) return;
-
-    if(theme === 'light'){
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
-    }else{
-        themeIcon.classList.remove('fa-sun');
-        themeIcon.classList.add('fa-moon');
-    }
-}
-
-updateThemeIcon(savedTheme);
-
-if(themeToggle){
-    themeToggle.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-        const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-        document.documentElement.setAttribute('data-theme', nextTheme);
-        localStorage.setItem('ag_theme', nextTheme);
-        updateThemeIcon(nextTheme);
-    });
-}
-
-
-/* =====================================================
-   Mobile Navigation Menu
-===================================================== */
-
-const menuToggle = document.querySelector('.menu-toggle');
-const navLinks = document.querySelector('.nav-links');
-
-if(menuToggle && navLinks){
-    menuToggle.addEventListener('click', () => {
-        menuToggle.classList.toggle('active');
-        navLinks.classList.toggle('active');
-    });
-
-    navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            menuToggle.classList.remove('active');
-            navLinks.classList.remove('active');
-        });
-    });
-}
+ btn.addEventListener('click', () => {
+   window.scrollTo({top:0, behavior:'smooth'});
+ });
+});

@@ -74,6 +74,7 @@ CREATE TABLE `projects` (
   `description` text NOT NULL,
   `content` longtext NOT NULL,
   `technologies` text DEFAULT NULL,
+  `website_url` varchar(500) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -81,7 +82,7 @@ CREATE TABLE `projects` (
 -- Dumping data for table `projects`
 --
 
-INSERT INTO `projects` (`id`, `title`, `description`, `content`, `technologies`, `created_at`) VALUES
+INSERT INTO `projects` (`id`, `title`, `description`, `content`, `technologies`, `website_url`, `created_at`) VALUES
 (4, 'Mutadarrib', 'منصة للتدريب المهني تربط المتدربين بجهات التدريب المعتمدة في مختلف التخصصات.', 'منصة “متدرب” هي منصة رقمية للتدريب المهني تهدف إلى ربط الخريجين بجهات تدريب معتمدة في مختلف التخصصات، ضمن مسار واضح يبدأ بإنشاء الحساب وإكمال الملف الشخصي، ثم التقديم على فرص التدريب والمتابعة حتى إتمام البرنامج.', 'php', '2026-05-21 20:05:19'),
 (6, 'Fashion Store', 'وجهتك لأحدث الصيحات والأنماط، والتزامك بالأناقة والجودة ورضا العملاء.', 'نواكب أحدث الصيحات والتصاميم العصرية، مع حرصنا الدائم على تقديم أعلى معايير الأناقة والجودة لضمان رضا عملائنا وثقتهم.', '', '2026-05-21 20:14:37'),
 (7, 'Health and Medicine Pharmacy', 'نقدّم لك أفضل خدمات وحلول الرعاية الصحية المتكاملة في مدينتك، بجودة موثوقة', 'متخصصون في توفير الأدوية والمستلزمات الطبية ومنتجات العناية الصحية بجودة عالية وأسعار مناسبة، مع الالتزام بتقديم خدمة موثوقة واستشارات تساعد على تعزيز صحة وراحة العملاء.', '', '2026-05-21 20:16:30'),

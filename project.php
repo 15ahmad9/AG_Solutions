@@ -54,7 +54,7 @@ $images = $imageStmt->fetchAll();
   <link rel="shortcut icon" href="assets/images/AG_Logo_RBG.png" type="image/x-icon">
 
     <title>
-        <?= $currentProject['title'] ?>
+        <?= htmlspecialchars($currentProject['title']) ?>
     </title>
 
     <!-- Google Fonts -->
@@ -77,20 +77,15 @@ $images = $imageStmt->fetchAll();
   <header id="header">
   <div class="container">
     <nav class="navbar">
-
-      <a href="index.php" class="logo">
+      <a href="index.php" class="logo" aria-label="AG Solutions">
         <img src="assets/images/AG_Logo_RBG.png" alt="AG Solutions Logo">
       </a>
 
-
       <button class="menu-toggle" type="button" aria-label="Open menu">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </button>
 
-
-<ul class="nav-links">
+      <ul class="nav-links">
         <li><a href="index.php"><?= t('home') ?></a></li>
         <li><a href="index.php#services"><?= t('services') ?></a></li>
         <li><a href="index.php#about"><?= t('about') ?></a></li>
@@ -100,24 +95,20 @@ $images = $imageStmt->fetchAll();
       </ul>
 
       <a href="contact.php" class="btn nav-cta">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
         <?= t('start_project') ?>
       </a>
 
-      
       <button class="theme-toggle" type="button" aria-label="Toggle theme">
         <i class="fa-solid fa-moon"></i>
       </button>
 
       <div class="lang-switcher">
-        <a
-          href="<?= switch_lang_url($lang === 'ar' ? 'en' : 'ar') ?>"
-          class="language-toggle"
-          aria-label="Switch language"
-        >
+        <a href="<?= switch_lang_url($lang === 'ar' ? 'en' : 'ar') ?>"
+           class="language-toggle" aria-label="Switch language">
           <?= t('language') ?>
         </a>
       </div>
-
     </nav>
   </div>
 </header>
@@ -130,11 +121,11 @@ $images = $imageStmt->fetchAll();
         <div class="project-details">
 
             <h1>
-                <?= $currentProject['title'] ?>
+                <?= htmlspecialchars($currentProject['title']) ?>
             </h1>
 
             <p class="project-description">
-                <?= nl2br($currentProject['content']) ?>
+                <?= nl2br(htmlspecialchars($currentProject['content'])) ?>
             </p>
 
             <?php if(!empty($currentProject['website_url'])): ?>
@@ -142,7 +133,7 @@ $images = $imageStmt->fetchAll();
             <div class="project-website">
 
                 <h3>
-                    Website
+                    <?= t('website_label') ?>
                 </h3>
 
                 <a 
@@ -152,7 +143,7 @@ $images = $imageStmt->fetchAll();
                     rel="noopener noreferrer"
                 >
                     <i class="fa-solid fa-globe"></i>
-                    Visit Website
+                    <?= t('visit_website') ?>
                 </a>
 
             </div>
@@ -167,7 +158,7 @@ $images = $imageStmt->fetchAll();
                 </h3>
 
                 <p>
-                    <?= $currentProject['technologies'] ?>
+                    <?= htmlspecialchars($currentProject['technologies']) ?>
                 </p>
 
             </div>
@@ -195,8 +186,8 @@ $images = $imageStmt->fetchAll();
                     <div class="slide">
 
                         <img
-                            src="<?= $image['image'] ?>"
-                            alt="<?= $currentProject['title'] ?>"
+                            src="<?= htmlspecialchars($image['image']) ?>"
+                            alt="<?= htmlspecialchars($currentProject['title']) ?>"
                         >
 
                     </div>

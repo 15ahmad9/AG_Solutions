@@ -80,44 +80,6 @@ if(isset($_GET['success'])){
 
     <link rel="stylesheet"
           href="assets/css/style.css">
-
-    <style>
-
-        .contact-page{
-            padding:120px 0 80px;
-            min-height:100vh;
-        }
-
-        .page-title{
-            text-align:center;
-            margin-bottom:60px;
-        }
-
-        .page-title h1{
-            font-size:42px;
-            margin-bottom:15px;
-        }
-
-        .page-title p{
-            color:#777;
-            font-size:18px;
-        }
-
-        .back-home{
-            text-align:center;
-            margin-top:50px;
-        }
-
-        @media(max-width:992px){
-
-            .contact-content{
-                grid-template-columns:1fr;
-            }
-
-        }
-
-    </style>
-
 </head>
 
 <body>
@@ -127,19 +89,15 @@ if(isset($_GET['success'])){
 <header id="header">
   <div class="container">
     <nav class="navbar">
-
-      <a href="index.php" class="logo">
+      <a href="index.php" class="logo" aria-label="AG Solutions">
         <img src="assets/images/AG_Logo_RBG.png" alt="AG Solutions Logo">
       </a>
 
-
       <button class="menu-toggle" type="button" aria-label="Open menu">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </button>
 
-<ul class="nav-links">
+      <ul class="nav-links">
         <li><a href="index.php"><?= t('home') ?></a></li>
         <li><a href="index.php#services"><?= t('services') ?></a></li>
         <li><a href="index.php#about"><?= t('about') ?></a></li>
@@ -149,24 +107,20 @@ if(isset($_GET['success'])){
       </ul>
 
       <a href="contact.php" class="btn nav-cta">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
         <?= t('start_project') ?>
       </a>
 
-      
       <button class="theme-toggle" type="button" aria-label="Toggle theme">
         <i class="fa-solid fa-moon"></i>
       </button>
 
       <div class="lang-switcher">
-        <a
-          href="<?= switch_lang_url($lang === 'ar' ? 'en' : 'ar') ?>"
-          class="language-toggle"
-          aria-label="Switch language"
-        >
+        <a href="<?= switch_lang_url($lang === 'ar' ? 'en' : 'ar') ?>"
+           class="language-toggle" aria-label="Switch language">
           <?= t('language') ?>
         </a>
       </div>
-
     </nav>
   </div>
 </header>
