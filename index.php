@@ -494,8 +494,10 @@ $projects = $stmt->fetchAll();
           <h3><?= t('contact_info') ?></h3>
 
           <div class="contact-item">
-            <i class="fa-brands fa-whatsapp"></i>
-            <span>00962781977173</span>
+            <i class="fa-brands fa-whatsapp" ></i>
+            <a href="https://wa.me/962781977173" target="_blank">
+              00962781977173
+            </a>
           </div>
 
           <div class="contact-item">
@@ -510,7 +512,9 @@ $projects = $stmt->fetchAll();
 
           <div class="contact-item">
             <i class="fa-solid fa-envelope"></i>
-            <span>agsolution.jo@gmail.com</span>
+            <a href="mailto:agsolution.jo@gmail.com" target="_blank">
+              agsolution.jo@gmail.com
+            </a>
           </div>
         </div>
 
